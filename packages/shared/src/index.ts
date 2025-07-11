@@ -9,5 +9,5 @@ export type {
   GlassToggleButtonProps
 } from './types';
 
-// Re-export styles
+// Import styles to be processed by Rollup
 import './styles.css'; 

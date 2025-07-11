@@ -1,1 +1,10 @@
 node_modules
+dist
+.turbo
+*.log
+.env
+.env.local
+.env.production.local
+.env.development.local
+pnpm-lock.yaml
+coverage
