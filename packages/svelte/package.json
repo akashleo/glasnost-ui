@@ -1,0 +1,38 @@
+{
+  "name": "@glasnost/svelte",
+  "version": "0.1.0",
+  "description": "Svelte components for Glasnost UI with liquid glass aesthetics",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "clean": "rm -rf dist",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@glasnost/shared": "workspace:*"
+  },
+  "peerDependencies": {
+    "svelte": "^4.0.0"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^2.4.0",
+    "svelte": "^4.2.0",
+    "vite": "^4.4.0",
+    "vitest": "^0.34.0",
+    "typescript": "^5.0.0"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  }
+} 

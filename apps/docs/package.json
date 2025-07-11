@@ -1,0 +1,22 @@
+{
+  "name": "@glasnost/docs",
+  "version": "0.1.0",
+  "description": "Documentation and examples for Glasnost UI components",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@glasnost/shared": "workspace:*",
+    "@glasnost/vue": "workspace:*",
+    "vue": "^3.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.3.0",
+    "vite": "^4.4.0",
+    "typescript": "^5.0.0"
+  }
+} 
