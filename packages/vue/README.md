@@ -1,8 +1,8 @@
-# Glasnost UI - Vue Components 🌊
+# Glasnost UI - Vue Components
 
 Beautiful liquid glass UI components for Vue 3 applications. Create stunning, modern interfaces with smooth glass morphism effects and fluid animations.
 
-## ✨ Features
+## Features
 
 - 🎨 Liquid glass aesthetics with advanced SVG filters
 - 🔄 Smooth animations and transitions
