@@ -215,7 +215,7 @@ import type {
 
 ## 🌟 Best Practices
 
-1. Use a gradient or image background for best glass effect
+1. Use a gradient or image or svg background for best glass effect
 2. Consider reduced motion preferences
 3. Provide ARIA labels for accessibility
 4. Test on different viewport sizes

@@ -1,6 +1,6 @@
 {
   "name": "@glasnost-ui/vue",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Vue 3 components for Glasnost UI with liquid glass aesthetics",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
