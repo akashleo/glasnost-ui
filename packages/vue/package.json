@@ -1,5 +1,5 @@
 {
-  "name": "@glasnost/vue",
+  "name": "@glasnost-ui/vue",
   "version": "0.1.0",
   "description": "Vue 3 components for Glasnost UI with liquid glass aesthetics",
   "main": "dist/index.js",
@@ -16,7 +16,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@glasnost/shared": "workspace:*"
+    "@glasnost-ui/shared": "workspace:0.1.0"
   },
   "peerDependencies": {
     "vue": "^3.3.0"
