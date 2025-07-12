@@ -34,5 +34,21 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     }
-  }
-} 
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akashleo/glasnost-ui.git"
+  },
+  "keywords": [
+    "vue-glass",
+    "liquid-glass",
+    "vue-liquid-glass",
+    "glassmorphic"
+  ],
+  "author": "Akash Ghosh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akashleo/glasnost-ui/issues"
+  },
+  "homepage": "https://github.com/akashleo/glasnost-ui#readme"
+}
