@@ -1,5 +1,5 @@
 {
-  "name": "@glasnost/shared",
+  "name": "@glasnost-ui/shared",
   "version": "0.1.0",
   "description": "Shared styles and SVG filters for Glasnost UI",
   "main": "dist/index.js",
