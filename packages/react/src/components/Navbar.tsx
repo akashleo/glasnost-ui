@@ -59,7 +59,8 @@ export const Navbar: React.FC<ReactNavbarProps> = ({
         </div>
       </div>
 
-      <style jsx>{`
+      <style>
+        {`
         .glasnost-navbar {
           position: relative;
           width: 100%;
@@ -160,7 +161,8 @@ export const Navbar: React.FC<ReactNavbarProps> = ({
             transition: none;
           }
         }
-      `}</style>
+        `}
+      </style>
     </nav>
   )
 } 

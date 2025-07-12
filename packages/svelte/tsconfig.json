@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "checkJs": true,
+    "declaration": true,
+    "declarationDir": "./dist",
+    "outDir": "./dist",
+    "isolatedModules": true,
+    "types": ["svelte"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+} 

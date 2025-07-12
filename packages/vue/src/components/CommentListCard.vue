@@ -19,28 +19,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div :class="`glasnost-comment-card flowing-glass ${className}`">
-    <!-- Embedded SVG filters -->
-    <svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="commentFlowDistortion" x="-25%" y="-25%" width="150%" height="150%">
-          <feTurbulence 
-            type="turbulence" 
-            baseFrequency="0.012 0.008" 
-            numOctaves="3" 
-            result="commentFlow"
-          />
-          <feDisplacementMap 
-            in="SourceGraphic" 
-            in2="commentFlow" 
-            scale="8" 
-            xChannelSelector="R" 
-            yChannelSelector="B"
-          />
-        </filter>
-      </defs>
-    </svg>
-
+  <div :class="`glasnost-comment-card ${className}`">
+    <div class="comment-glass-overlay"></div>
     <div class="comment-card-header">
       <h3 class="comment-title">{{ title }}</h3>
       <div class="comment-count">
@@ -58,9 +38,11 @@ onMounted(() => {
       </slot>
     </div>
 
-    <!-- Flowing liquid elements -->
-    <div class="liquid-wave wave-1"></div>
-    <div class="liquid-wave wave-2"></div>
+    <!-- Enhanced floating elements -->
+    <div class="floating-particle particle-1"></div>
+    <div class="floating-particle particle-2"></div>
+    <div class="floating-particle particle-3"></div>
+    <div class="comment-shine"></div>
   </div>
 </template>
 
@@ -68,26 +50,27 @@ onMounted(() => {
 .glasnost-comment-card {
   position: relative;
   width: 100%;
-  padding: 1.5rem;
-  backdrop-filter: blur(20px) saturate(2.5);
-  -webkit-backdrop-filter: blur(20px) saturate(2.5);
-  background: linear-gradient(45deg, 
-    rgba(255, 255, 255, 0.2) 0%, 
-    rgba(255, 255, 255, 0.1) 25%,
-    rgba(255, 255, 255, 0.05) 50%,
-    rgba(255, 255, 255, 0.1) 75%,
-    rgba(255, 255, 255, 0.2) 100%);
+  padding: 2rem;
+  backdrop-filter: blur(35px) saturate(180%) brightness(115%);
+  -webkit-backdrop-filter: blur(35px) saturate(180%) brightness(115%);
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.25) 0%, 
+    rgba(255, 255, 255, 0.15) 25%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    rgba(255, 255, 255, 0.25) 100%);
   background-size: 200% 200%;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 24px;
-  filter: url(#commentFlowDistortion);
-  animation: flowingBackground 10s ease-in-out infinite;
+  border-radius: 20px;
+  animation: flowingBackground 15s ease-in-out infinite;
+  filter: url(#commentGlass);
   box-shadow: 
-    0 12px 40px rgba(0, 0, 0, 0.1),
-    inset 0 2px 0 rgba(255, 255, 255, 0.4),
-    0 2px 0 rgba(255, 255, 255, 0.15);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    0 15px 50px rgba(31, 38, 135, 0.37),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
   overflow: hidden;
+  transform-style: preserve-3d;
 }
 
 @keyframes flowingBackground {
@@ -95,12 +78,58 @@ onMounted(() => {
   50% { background-position: 100% 50%; }
 }
 
+.comment-glass-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.05) 100%);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.comment-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.3) 50%, 
+    transparent 100%);
+  border-radius: inherit;
+  transition: left 0.7s ease;
+  pointer-events: none;
+}
+
 .glasnost-comment-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px) rotateX(2deg);
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.3) 0%, 
+    rgba(255, 255, 255, 0.2) 25%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.2) 75%,
+    rgba(255, 255, 255, 0.3) 100%);
+  border-color: rgba(255, 255, 255, 0.4);
   box-shadow: 
-    0 20px 56px rgba(0, 0, 0, 0.15),
-    inset 0 3px 0 rgba(255, 255, 255, 0.5),
-    0 3px 0 rgba(255, 255, 255, 0.2);
+    0 25px 70px rgba(31, 38, 135, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.6),
+    0 2px 0 rgba(255, 255, 255, 0.2);
+}
+
+.glasnost-comment-card:hover .comment-glass-overlay {
+  opacity: 1;
+}
+
+.glasnost-comment-card:hover .comment-shine {
+  left: 100%;
 }
 
 .comment-card-header {
@@ -115,22 +144,35 @@ onMounted(() => {
 }
 
 .comment-title {
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 700;
   color: rgba(255, 255, 255, 0.95);
   margin: 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   letter-spacing: 0.025em;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.8) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .comment-count {
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.7);
-  background: rgba(255, 255, 255, 0.1);
-  padding: 0.25rem 0.75rem;
-  border-radius: 12px;
-  backdrop-filter: blur(8px);
+  color: rgba(255, 255, 255, 0.8);
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.2) 0%, 
+    rgba(255, 255, 255, 0.1) 100%);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 
+    0 4px 16px rgba(31, 38, 135, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .comment-card-content {
@@ -141,133 +183,181 @@ onMounted(() => {
 
 .no-comments {
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 3rem 1rem;
   color: rgba(255, 255, 255, 0.7);
 }
 
 .no-comments-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
   opacity: 0.6;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
 .no-comments p {
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* Liquid wave effects */
-.liquid-wave {
+/* Enhanced floating particles */
+.floating-particle {
   position: absolute;
-  width: 200%;
-  height: 40px;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(255, 255, 255, 0.1), 
-    transparent);
+  background: radial-gradient(circle, 
+    rgba(255, 255, 255, 0.3) 0%, 
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%);
   border-radius: 50%;
-  animation: liquidWave 8s ease-in-out infinite;
   pointer-events: none;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.wave-1 {
+.particle-1 {
+  width: 16px;
+  height: 16px;
   top: 20%;
-  left: -50%;
-  animation-delay: 0s;
-  transform: rotate(-5deg);
+  left: 15%;
+  animation: floatParticle 12s ease-in-out infinite;
 }
 
-.wave-2 {
-  bottom: 20%;
-  right: -50%;
-  animation-delay: 4s;
-  transform: rotate(5deg);
+.particle-2 {
+  width: 12px;
+  height: 12px;
+  top: 70%;
+  right: 20%;
+  animation: floatParticle 15s ease-in-out infinite 3s;
 }
 
-@keyframes liquidWave {
+.particle-3 {
+  width: 14px;
+  height: 14px;
+  bottom: 25%;
+  left: 25%;
+  animation: floatParticle 18s ease-in-out infinite 6s;
+}
+
+@keyframes floatParticle {
   0%, 100% {
-    transform: translateX(-20px) scale(1) rotate(-5deg);
+    transform: translateY(0) translateX(0) rotate(0deg);
     opacity: 0.3;
   }
-  50% {
-    transform: translateX(20px) scale(1.1) rotate(5deg);
+  25% {
+    transform: translateY(-20px) translateX(10px) rotate(90deg);
     opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-30px) translateX(-5px) rotate(180deg);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translateY(-15px) translateX(15px) rotate(270deg);
+    opacity: 0.7;
   }
 }
 
-/* Comment list styling for slotted content */
+/* Enhanced comment list styling for slotted content */
 .glasnost-comment-card :deep(.comment-item) {
-  padding: 1rem;
+  padding: 1.5rem;
   margin-bottom: 1rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.15) 0%, 
+    rgba(255, 255, 255, 0.08) 100%);
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
-  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  box-shadow: 
+    0 8px 25px rgba(31, 38, 135, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .glasnost-comment-card :deep(.comment-item:hover) {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
-  transform: translateX(4px);
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.2) 0%, 
+    rgba(255, 255, 255, 0.12) 100%);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateX(8px) translateY(-2px);
+  box-shadow: 
+    0 12px 35px rgba(31, 38, 135, 0.25),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3);
 }
 
 .glasnost-comment-card :deep(.comment-author) {
-  font-weight: 600;
+  font-weight: 700;
   color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .glasnost-comment-card :deep(.comment-text) {
   color: rgba(255, 255, 255, 0.8);
-  line-height: 1.6;
+  line-height: 1.7;
+  font-size: 1rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .glasnost-comment-card :deep(.comment-meta) {
   font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.6);
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
   .glasnost-comment-card {
-    padding: 1.25rem;
-    border-radius: 20px;
+    padding: 1.5rem;
+    border-radius: 18px;
   }
   
   .comment-card-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.75rem;
+    gap: 1rem;
   }
   
   .comment-title {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
+  }
+  
+  .comment-count {
+    align-self: flex-end;
   }
   
   .no-comments {
-    padding: 1.5rem 0.5rem;
+    padding: 2rem 0.5rem;
   }
   
   .no-comments-icon {
-    font-size: 2.5rem;
+    font-size: 3rem;
+  }
+  
+  .no-comments p {
+    font-size: 1rem;
   }
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .glasnost-comment-card {
+  .glasnost-comment-card,
+  .floating-particle,
+  .comment-shine,
+  .comment-glass-overlay {
     animation: none;
-  }
-  
-  .liquid-wave {
-    animation: none;
+    transition: none;
   }
   
   .glasnost-comment-card :deep(.comment-item) {
     transition: none;
+  }
+  
+  .glasnost-comment-card:hover {
+    transform: translateY(-4px);
   }
 }
 </style> 

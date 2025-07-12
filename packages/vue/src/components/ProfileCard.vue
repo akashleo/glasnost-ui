@@ -21,51 +21,17 @@ onMounted(() => {
 </script>
 
 <template>
-  <div :class="`glasnost-profile-card enhanced-liquid ${className}`">
-    <!-- Embedded SVG filters for this component -->
-    <svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="profileCardDistortion" x="-30%" y="-30%" width="160%" height="160%">
-          <feTurbulence 
-            type="fractalNoise" 
-            baseFrequency="0.008 0.012" 
-            numOctaves="4" 
-            result="profileNoise"
-          />
-          <feDisplacementMap 
-            in="SourceGraphic" 
-            in2="profileNoise" 
-            scale="10" 
-            xChannelSelector="R" 
-            yChannelSelector="G" 
-            result="profileDisplaced"
-          />
-          <feGaussianBlur in="profileDisplaced" stdDeviation="0.6" result="profileBlur"/>
-          <feColorMatrix 
-            in="profileBlur" 
-            type="matrix" 
-            values="1.05 0 0 0 0  0 1.05 0 0 0  0 0 1.1 0 0  0 0 0 0.95 0"
-          />
-        </filter>
-
-        <filter id="avatarGlow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-          <feMerge> 
-            <feMergeNode in="coloredBlur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
-      </defs>
-    </svg>
-
+  <div :class="`glasnost-profile-card ${className}`">
+    <div class="profile-glass-overlay"></div>
     <div class="profile-card-content">
       <div class="avatar-container">
+        <div class="avatar-glow-ring"></div>
         <img 
           :src="avatar" 
           :alt="`${name} avatar`" 
           class="profile-avatar"
         />
-        <div class="avatar-glow"></div>
+        <div class="avatar-shimmer"></div>
       </div>
       
       <div class="profile-info">
@@ -80,10 +46,11 @@ onMounted(() => {
       </div>
     </div>
 
-    <!-- Floating elements for additional liquid effect -->
-    <div class="floating-bubble bubble-1"></div>
-    <div class="floating-bubble bubble-2"></div>
-    <div class="floating-bubble bubble-3"></div>
+    <!-- Enhanced floating elements -->
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+    <div class="card-shine"></div>
   </div>
 </template>
 
@@ -91,48 +58,76 @@ onMounted(() => {
 .glasnost-profile-card {
   position: relative;
   width: 100%;
-  max-width: 320px;
-  padding: 2rem 1.5rem;
-  backdrop-filter: blur(24px) saturate(3) brightness(1.2);
-  -webkit-backdrop-filter: blur(24px) saturate(3) brightness(1.2);
-  background: 
-    linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%),
-    linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 28px;
-  filter: url(#profileCardDistortion);
+  max-width: 340px;
+  padding: 2.5rem 2rem;
+  backdrop-filter: blur(40px) saturate(200%) brightness(120%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(120%);
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.25) 0%, 
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 24px;
+  filter: url(#profileGlass);
   box-shadow: 
-    0 16px 48px rgba(0, 0, 0, 0.1),
-    inset 0 2px 0 rgba(255, 255, 255, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    0 20px 60px rgba(31, 38, 135, 0.37),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
   overflow: hidden;
+  transform-style: preserve-3d;
 }
 
-.glasnost-profile-card::before {
-  content: '';
+.profile-glass-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.05) 100%);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.card-shine {
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  animation: cardShimmer 4s ease-in-out infinite;
-  z-index: 1;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.4) 50%, 
+    transparent 100%);
+  border-radius: inherit;
+  transition: left 0.8s ease;
+  pointer-events: none;
 }
 
 .glasnost-profile-card:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: translateY(-12px) rotateX(5deg) rotateY(5deg);
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.3) 0%, 
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.1) 100%);
+  border-color: rgba(255, 255, 255, 0.4);
   box-shadow: 
-    0 24px 64px rgba(0, 0, 0, 0.15),
-    inset 0 3px 0 rgba(255, 255, 255, 0.5),
-    0 0 0 2px rgba(255, 255, 255, 0.2);
+    0 30px 80px rgba(31, 38, 135, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.6),
+    0 2px 0 rgba(255, 255, 255, 0.2);
 }
 
-@keyframes cardShimmer {
-  0% { left: -100%; }
-  50% { left: -100%; }
-  100% { left: 100%; }
+.glasnost-profile-card:hover .profile-glass-overlay {
+  opacity: 1;
+}
+
+.glasnost-profile-card:hover .card-shine {
+  left: 100%;
 }
 
 .profile-card-content {
@@ -146,146 +141,226 @@ onMounted(() => {
 
 .avatar-container {
   position: relative;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.avatar-glow-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  background: conic-gradient(from 0deg, 
+    rgba(99, 102, 241, 0.5), 
+    rgba(236, 72, 153, 0.5), 
+    rgba(99, 102, 241, 0.5));
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: all 0.4s ease;
+  animation: avatarRotate 6s linear infinite;
+  z-index: 1;
+}
+
+.glasnost-profile-card:hover .avatar-glow-ring {
+  opacity: 0.6;
+}
+
+@keyframes avatarRotate {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 .profile-avatar {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid rgba(255, 255, 255, 0.4);
   filter: url(#avatarGlow);
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   position: relative;
-  z-index: 2;
+  z-index: 3;
+  box-shadow: 
+    0 8px 32px rgba(31, 38, 135, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
-.avatar-glow {
+.glasnost-profile-card:hover .profile-avatar {
+  transform: scale(1.1);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 
+    0 12px 40px rgba(31, 38, 135, 0.6),
+    inset 0 2px 0 rgba(255, 255, 255, 0.5);
+}
+
+.avatar-shimmer {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 100px;
   height: 100px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  background: radial-gradient(circle, 
+    rgba(255, 255, 255, 0.3) 0%, 
+    rgba(255, 255, 255, 0.1) 40%,
+    transparent 70%);
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  opacity: 0.6;
-  animation: avatarPulse 3s ease-in-out infinite;
-  z-index: 1;
+  opacity: 0;
+  transition: all 0.4s ease;
+  animation: avatarPulse 4s ease-in-out infinite;
+  z-index: 2;
+}
+
+.glasnost-profile-card:hover .avatar-shimmer {
+  opacity: 0.8;
 }
 
 @keyframes avatarPulse {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
-  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.3; }
+  0%, 100% { 
+    transform: translate(-50%, -50%) scale(1); 
+    opacity: 0.3; 
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.3); 
+    opacity: 0.6; 
+  }
 }
 
 .profile-info {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .profile-name {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.75rem;
+  font-weight: 700;
   color: rgba(255, 255, 255, 0.95);
-  margin: 0 0 0.5rem 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin: 0 0 0.75rem 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   letter-spacing: 0.025em;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.8) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .profile-title {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.75);
   margin: 0;
-  font-weight: 400;
-  opacity: 0.9;
+  font-weight: 500;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 .profile-actions {
   width: 100%;
 }
 
-/* Floating bubble effects */
-.floating-bubble {
+/* Enhanced floating orbs */
+.floating-orb {
   position: absolute;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+  background: radial-gradient(circle, 
+    rgba(255, 255, 255, 0.2) 0%, 
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%);
   border-radius: 50%;
   pointer-events: none;
-  animation: floatBubble 6s ease-in-out infinite;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.bubble-1 {
+.orb-1 {
+  width: 24px;
+  height: 24px;
+  top: 15%;
+  left: 10%;
+  animation: floatOrb 8s ease-in-out infinite;
+}
+
+.orb-2 {
+  width: 18px;
+  height: 18px;
+  top: 70%;
+  right: 15%;
+  animation: floatOrb 10s ease-in-out infinite 2s;
+}
+
+.orb-3 {
   width: 20px;
   height: 20px;
-  top: 20%;
-  left: 15%;
-  animation-delay: 0s;
+  bottom: 20%;
+  left: 20%;
+  animation: floatOrb 12s ease-in-out infinite 4s;
 }
 
-.bubble-2 {
-  width: 15px;
-  height: 15px;
-  top: 60%;
-  right: 20%;
-  animation-delay: 2s;
-}
-
-.bubble-3 {
-  width: 12px;
-  height: 12px;
-  bottom: 25%;
-  left: 25%;
-  animation-delay: 4s;
-}
-
-@keyframes floatBubble {
+@keyframes floatOrb {
   0%, 100% { 
-    transform: translateY(0) scale(1); 
+    transform: translateY(0) rotate(0deg); 
     opacity: 0.3; 
   }
-  50% { 
-    transform: translateY(-20px) scale(1.2); 
+  25% { 
+    transform: translateY(-15px) rotate(90deg); 
     opacity: 0.6; 
+  }
+  50% { 
+    transform: translateY(-25px) rotate(180deg); 
+    opacity: 0.4; 
+  }
+  75% { 
+    transform: translateY(-10px) rotate(270deg); 
+    opacity: 0.7; 
   }
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
   .glasnost-profile-card {
-    max-width: 280px;
-    padding: 1.5rem 1.25rem;
+    max-width: 300px;
+    padding: 2rem 1.5rem;
     border-radius: 20px;
   }
   
   .profile-avatar {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
   }
   
-  .avatar-glow {
-    width: 85px;
-    height: 85px;
+  .avatar-glow-ring {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .avatar-shimmer {
+    width: 90px;
+    height: 90px;
   }
   
   .profile-name {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+  }
+  
+  .profile-title {
+    font-size: 1rem;
   }
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .glasnost-profile-card::before,
-  .avatar-glow,
-  .floating-bubble {
+  .glasnost-profile-card,
+  .profile-avatar,
+  .avatar-shimmer,
+  .avatar-glow-ring,
+  .floating-orb,
+  .card-shine,
+  .profile-glass-overlay {
+    transition: none;
     animation: none;
   }
   
-  .glasnost-profile-card {
-    transition: none;
-  }
-  
-  .profile-avatar {
-    transition: none;
+  .glasnost-profile-card:hover {
+    transform: translateY(-8px);
   }
 }
 </style> 

@@ -1,0 +1,25 @@
+{
+  "name": "@glasnost/react-docs",
+  "version": "0.1.0",
+  "description": "Documentation and examples for Glasnost UI React components",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@glasnost/shared": "workspace:*",
+    "@glasnost/react": "workspace:*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "vite": "^4.4.0",
+    "typescript": "^5.0.0"
+  }
+} 

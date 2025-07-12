@@ -7,7 +7,4 @@ export type {
   GlassButtonProps,
   HamburgerMenuProps,
   GlassToggleButtonProps
-} from './types';
-
-// Re-export styles
-import './styles.css'; 
+} from './types'; 

@@ -89,7 +89,8 @@ export const ProfileCard: React.FC<ReactProfileCardProps> = ({
       <div className="floating-bubble bubble-2"></div>
       <div className="floating-bubble bubble-3"></div>
 
-      <style jsx>{`
+      <style>
+        {`
         .glasnost-profile-card {
           position: relative;
           width: 100%;
@@ -290,7 +291,8 @@ export const ProfileCard: React.FC<ReactProfileCardProps> = ({
             transition: none;
           }
         }
-      `}</style>
+        `}
+      </style>
     </div>
   )
 } 

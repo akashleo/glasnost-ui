@@ -3,20 +3,28 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { resolve } from 'path'
 
 export default defineConfig({
-  plugins: [svelte()],
+  plugins: [svelte({
+    compilerOptions: {
+      customElement: false
+    }
+  })],
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'GlasnostSvelte',
-      fileName: (format) => `index.${format}.js`
+      fileName: (format) => `index.${format === 'es' ? 'esm' : format}.js`,
+      formats: ['es', 'cjs']
     },
     rollupOptions: {
-      external: ['svelte'],
+      external: ['svelte', '@glasnost/shared'],
       output: {
         globals: {
-          svelte: 'Svelte'
+          svelte: 'Svelte',
+          '@glasnost/shared': 'GlasnostShared'
         }
       }
-    }
+    },
+    sourcemap: true,
+    minify: false
   }
 }) 

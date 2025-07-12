@@ -21,7 +21,7 @@ const emit = defineEmits<{
 }>()
 
 const buttonClasses = computed(() => {
-  const baseClasses = 'glasnost-glass-button glass-button'
+  const baseClasses = 'glasnost-glass-button'
   const variantClasses = {
     primary: 'glass-button--primary',
     secondary: 'glass-button--secondary',
@@ -60,49 +60,11 @@ const handleClick = () => {
     @click="handleClick"
     type="button"
   >
-    <!-- Embedded SVG filters -->
-    <svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="buttonLiquidDistortion" x="-15%" y="-15%" width="130%" height="130%">
-          <feTurbulence 
-            type="fractalNoise" 
-            baseFrequency="0.03 0.02" 
-            numOctaves="2" 
-            result="buttonNoise"
-          />
-          <feDisplacementMap 
-            in="SourceGraphic" 
-            in2="buttonNoise" 
-            scale="4" 
-            xChannelSelector="R" 
-            yChannelSelector="G"
-          />
-        </filter>
-
-        <filter id="buttonRipple" x="-50%" y="-50%" width="200%" height="200%">
-          <feTurbulence 
-            type="turbulence" 
-            baseFrequency="0.02" 
-            numOctaves="1" 
-            result="rippleNoise"
-          />
-          <feDisplacementMap 
-            in="SourceGraphic" 
-            in2="rippleNoise" 
-            scale="8" 
-            xChannelSelector="R" 
-            yChannelSelector="B"
-          />
-        </filter>
-      </defs>
-    </svg>
-
+    <div class="button-glass-overlay"></div>
     <span class="button-content">
       <slot></slot>
     </span>
-    
-    <div class="button-ripple"></div>
-    <div class="button-glow"></div>
+    <div class="button-shine"></div>
   </button>
 </template>
 
@@ -112,86 +74,159 @@ const handleClick = () => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(12px) saturate(1.8);
-  -webkit-backdrop-filter: blur(12px) saturate(1.8);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+  backdrop-filter: blur(25px) saturate(200%) brightness(110%);
+  -webkit-backdrop-filter: blur(25px) saturate(200%) brightness(110%);
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.25) 0%, 
+    rgba(255, 255, 255, 0.1) 100%);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 12px;
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 500;
+  border-radius: 16px;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  filter: url(#buttonLiquidDistortion);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  filter: url(#buttonGlass);
   box-shadow: 
-    0 4px 16px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    0 8px 32px rgba(31, 38, 135, 0.37),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 1px 0 rgba(255, 255, 255, 0.1);
   overflow: hidden;
   text-decoration: none;
   user-select: none;
   outline: none;
+  transform-style: preserve-3d;
+}
+
+.button-glass-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.2) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.1) 100%);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.button-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.6) 50%, 
+    transparent 100%);
+  border-radius: inherit;
+  transition: left 0.6s ease;
+  pointer-events: none;
 }
 
 .glasnost-glass-button:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-3px) scale(1.02);
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.3) 0%, 
+    rgba(255, 255, 255, 0.15) 100%);
   border-color: rgba(255, 255, 255, 0.4);
   box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.15),
-    inset 0 2px 0 rgba(255, 255, 255, 0.5);
+    0 15px 45px rgba(31, 38, 135, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.6),
+    0 2px 0 rgba(255, 255, 255, 0.2);
+}
+
+.glasnost-glass-button:hover .button-glass-overlay {
+  opacity: 1;
+}
+
+.glasnost-glass-button:hover .button-shine {
+  left: 100%;
 }
 
 .glasnost-glass-button:active {
-  transform: translateY(0);
-  filter: url(#buttonRipple);
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: 
+    0 5px 20px rgba(31, 38, 135, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .glasnost-glass-button:focus-visible {
   outline: 2px solid rgba(255, 255, 255, 0.5);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 /* Size variants */
 .glass-button--small {
-  padding: 8px 16px;
+  padding: 8px 20px;
   font-size: 0.875rem;
-  border-radius: 8px;
-}
-
-.glass-button--medium {
-  padding: 12px 24px;
-  font-size: 1rem;
   border-radius: 12px;
 }
 
-.glass-button--large {
-  padding: 16px 32px;
-  font-size: 1.125rem;
+.glass-button--medium {
+  padding: 12px 28px;
+  font-size: 1rem;
   border-radius: 16px;
+}
+
+.glass-button--large {
+  padding: 16px 36px;
+  font-size: 1.125rem;
+  border-radius: 20px;
 }
 
 /* Variant styles */
 .glass-button--primary {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(29, 78, 216, 0.2) 100%);
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.3) 0%, 
+    rgba(67, 56, 202, 0.2) 100%);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .glass-button--primary:hover {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.4) 0%, rgba(29, 78, 216, 0.3) 100%);
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.4) 0%, 
+    rgba(67, 56, 202, 0.3) 100%);
+  box-shadow: 
+    0 15px 45px rgba(99, 102, 241, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.6),
+    0 2px 0 rgba(99, 102, 241, 0.2);
 }
 
 .glass-button--secondary {
-  background: linear-gradient(135deg, rgba(156, 163, 175, 0.2) 0%, rgba(107, 114, 128, 0.1) 100%);
+  background: linear-gradient(135deg, 
+    rgba(107, 114, 128, 0.3) 0%, 
+    rgba(75, 85, 99, 0.2) 100%);
 }
 
 .glass-button--secondary:hover {
-  background: linear-gradient(135deg, rgba(156, 163, 175, 0.3) 0%, rgba(107, 114, 128, 0.2) 100%);
+  background: linear-gradient(135deg, 
+    rgba(107, 114, 128, 0.4) 0%, 
+    rgba(75, 85, 99, 0.3) 100%);
+  box-shadow: 
+    0 15px 45px rgba(107, 114, 128, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.6),
+    0 2px 0 rgba(107, 114, 128, 0.2);
 }
 
 .glass-button--accent {
-  background: linear-gradient(135deg, rgba(236, 72, 153, 0.3) 0%, rgba(190, 24, 93, 0.2) 100%);
+  background: linear-gradient(135deg, 
+    rgba(236, 72, 153, 0.3) 0%, 
+    rgba(190, 24, 93, 0.2) 100%);
 }
 
 .glass-button--accent:hover {
-  background: linear-gradient(135deg, rgba(236, 72, 153, 0.4) 0%, rgba(190, 24, 93, 0.3) 100%);
+  background: linear-gradient(135deg, 
+    rgba(236, 72, 153, 0.4) 0%, 
+    rgba(190, 24, 93, 0.3) 100%);
+  box-shadow: 
+    0 15px 45px rgba(236, 72, 153, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.6),
+    0 2px 0 rgba(236, 72, 153, 0.2);
 }
 
 /* Disabled state */
@@ -199,15 +234,23 @@ const handleClick = () => {
   opacity: 0.5;
   cursor: not-allowed;
   transform: none !important;
-  filter: none !important;
+  filter: grayscale(100%);
 }
 
 .glass-button--disabled:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.25) 0%, 
+    rgba(255, 255, 255, 0.1) 100%);
   border-color: rgba(255, 255, 255, 0.3);
   box-shadow: 
-    0 4px 16px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    0 8px 32px rgba(31, 38, 135, 0.37),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transform: none;
+}
+
+.glass-button--disabled .button-shine,
+.glass-button--disabled .button-glass-overlay {
+  display: none;
 }
 
 /* Button content */
@@ -217,83 +260,33 @@ const handleClick = () => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
-
-/* Ripple effect */
-.button-ripple {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1;
-  pointer-events: none;
-}
-
-.glasnost-glass-button:hover .button-ripple {
-  width: 200px;
-  height: 200px;
-}
-
-/* Button glow effect */
-.button-glow {
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-  border-radius: inherit;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.glasnost-glass-button:hover .button-glow {
-  opacity: 0.6;
-  animation: buttonGlowRotate 2s linear infinite;
-}
-
-@keyframes buttonGlowRotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
   .glass-button--small {
-    padding: 6px 12px;
+    padding: 6px 16px;
     font-size: 0.8rem;
   }
   
   .glass-button--medium {
-    padding: 10px 20px;
+    padding: 10px 24px;
     font-size: 0.9rem;
   }
   
   .glass-button--large {
-    padding: 14px 28px;
+    padding: 14px 32px;
     font-size: 1rem;
   }
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .glasnost-glass-button {
+  .glasnost-glass-button,
+  .button-shine,
+  .button-glass-overlay {
     transition: none;
-  }
-  
-  .button-ripple {
-    transition: none;
-  }
-  
-  .button-glow {
-    animation: none;
   }
 }
 </style> 

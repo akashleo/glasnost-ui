@@ -19,28 +19,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <nav :class="`glasnost-navbar liquid-glass ${className}`">
-    <!-- Embedded SVG filters for this component -->
-    <svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="navbarDistortion" x="-20%" y="-20%" width="140%" height="140%">
-          <feTurbulence 
-            type="fractalNoise" 
-            baseFrequency="0.01 0.005" 
-            numOctaves="3" 
-            result="navNoise"
-          />
-          <feDisplacementMap 
-            in="SourceGraphic" 
-            in2="navNoise" 
-            scale="6" 
-            xChannelSelector="R" 
-            yChannelSelector="G"
-          />
-        </filter>
-      </defs>
-    </svg>
-
+  <nav :class="`glasnost-navbar ${className}`">
+    <div class="navbar-glass-overlay"></div>
     <div class="navbar-content">
       <div class="navbar-left">
         <slot name="left">
@@ -67,46 +47,61 @@ onMounted(() => {
 .glasnost-navbar {
   position: relative;
   width: 100%;
-  padding: 1rem 2rem;
-  backdrop-filter: blur(20px) saturate(2.5) brightness(1.1);
-  -webkit-backdrop-filter: blur(20px) saturate(2.5) brightness(1.1);
+  padding: 1.25rem 2rem;
+  backdrop-filter: blur(40px) saturate(180%) brightness(120%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%) brightness(120%);
   background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.2) 0%, 
+    rgba(255, 255, 255, 0.25) 0%, 
     rgba(255, 255, 255, 0.1) 50%,
     rgba(255, 255, 255, 0.05) 100%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  filter: url(#navbarDistortion);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  filter: url(#navbarGlass);
   box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    0 8px 32px rgba(31, 38, 135, 0.37),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
   z-index: 1000;
+  overflow: hidden;
+}
+
+.navbar-glass-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.05) 100%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glasnost-navbar:hover .navbar-glass-overlay {
+  opacity: 1;
 }
 
 .glasnost-navbar::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(90deg, 
     transparent 0%, 
-    rgba(255, 255, 255, 0.1) 50%, 
+    rgba(255, 255, 255, 0.4) 50%, 
     transparent 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: left 0.5s ease;
   pointer-events: none;
 }
 
 .glasnost-navbar:hover::before {
-  opacity: 1;
-  animation: navbarShimmer 2s ease-in-out infinite;
-}
-
-@keyframes navbarShimmer {
-  0%, 100% { transform: translateX(-100%); }
-  50% { transform: translateX(100%); }
+  left: 100%;
 }
 
 .navbar-content {
@@ -133,37 +128,45 @@ onMounted(() => {
 
 .navbar-center {
   justify-content: center;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.05em;
 }
 
 .navbar-right {
   justify-content: flex-end;
 }
 
-.navbar-center {
-  font-weight: 600;
-  font-size: 1.25rem;
-  color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+/* Enhanced glass effect on hover */
+.glasnost-navbar:hover {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.3) 0%, 
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.1) 100%);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 
+    0 12px 40px rgba(31, 38, 135, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.6),
+    0 2px 0 rgba(255, 255, 255, 0.2);
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
   .glasnost-navbar {
-    padding: 0.75rem 1rem;
+    padding: 1rem 1.5rem;
   }
   
   .navbar-center {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
   }
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .glasnost-navbar::before {
-    animation: none;
-  }
-  
-  .glasnost-navbar {
+  .glasnost-navbar::before,
+  .navbar-glass-overlay {
     transition: none;
   }
 }

@@ -89,7 +89,7 @@ export const GlassButton: React.FC<ReactGlassButtonProps> = ({
       <div className="button-ripple"></div>
       <div className="button-glow"></div>
 
-      <style jsx>{`
+      <style >{`
         .glasnost-glass-button {
           position: relative;
           display: inline-flex;

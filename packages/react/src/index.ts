@@ -1,6 +1,9 @@
 export { Navbar } from './components/Navbar'
 export { ProfileCard } from './components/ProfileCard'
 export { GlassButton } from './components/GlassButton'
+export { CommentListCard } from './components/CommentListCard'
+export { HamburgerMenu } from './components/HamburgerMenu'
+export { GlassToggleButton } from './components/GlassToggleButton'
 
 // Re-export shared types and utilities
 export type {
