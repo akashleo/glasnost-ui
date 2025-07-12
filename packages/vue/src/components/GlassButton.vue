@@ -61,6 +61,7 @@ const handleClick = () => {
     type="button"
   >
     <div class="button-glass-overlay"></div>
+    <div class="button-liquid-distortion"></div>
     <span class="button-content">
       <slot></slot>
     </span>
@@ -74,27 +75,40 @@ const handleClick = () => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(25px) saturate(200%) brightness(110%);
-  -webkit-backdrop-filter: blur(25px) saturate(200%) brightness(110%);
+  /* backdrop-filter: blur(2px) saturate(180%) brightness(120%);
+  -webkit-backdrop-filter: blur(2px) saturate(180%) brightness(120%); */
   background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.25) 0%, 
-    rgba(255, 255, 255, 0.1) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+    rgba(255, 255, 255, 0.15) 0%, 
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.03) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 16px;
   color: rgba(255, 255, 255, 0.95);
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
-  filter: url(#buttonGlass);
-  box-shadow: 
-    0 8px 32px rgba(31, 38, 135, 0.37),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+  filter: url(#liquidNavbar);
   overflow: hidden;
   text-decoration: none;
   user-select: none;
   outline: none;
   transform-style: preserve-3d;
+}
+
+.glasnost-glass-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.3) 50%, 
+    transparent 100%);
+  transition: left 0.6s ease;
+  pointer-events: none;
+  border-radius: inherit;
 }
 
 .button-glass-overlay {
@@ -103,14 +117,30 @@ const handleClick = () => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.2) 0%,
-    transparent 50%,
-    rgba(255, 255, 255, 0.1) 100%);
-  border-radius: inherit;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  background: radial-gradient(circle at 30% 40%, 
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%);
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  border-radius: inherit;
+}
+
+.button-liquid-distortion {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    rgba(255, 255, 255, 0.05) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.05) 100%);
+  filter: url(#frostedGlass);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  border-radius: inherit;
 }
 
 .button-shine {
@@ -131,17 +161,27 @@ const handleClick = () => {
 .glasnost-glass-button:hover {
   transform: translateY(-3px) scale(1.02);
   background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.3) 0%, 
-    rgba(255, 255, 255, 0.15) 100%);
-  border-color: rgba(255, 255, 255, 0.4);
+    rgba(255, 255, 255, 0.2) 0%, 
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.06) 100%);
+  border-color: rgba(255, 255, 255, 0.35);
   box-shadow: 
     0 15px 45px rgba(31, 38, 135, 0.4),
     inset 0 2px 0 rgba(255, 255, 255, 0.6),
     0 2px 0 rgba(255, 255, 255, 0.2);
+  filter: url(#glassDistortion);
 }
 
 .glasnost-glass-button:hover .button-glass-overlay {
   opacity: 1;
+}
+
+.glasnost-glass-button:hover .button-liquid-distortion {
+  opacity: 0.6;
+}
+
+.glasnost-glass-button:hover::before {
+  left: 100%;
 }
 
 .glasnost-glass-button:hover .button-shine {
@@ -150,9 +190,7 @@ const handleClick = () => {
 
 .glasnost-glass-button:active {
   transform: translateY(-1px) scale(0.98);
-  box-shadow: 
-    0 5px 20px rgba(31, 38, 135, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  filter: url(#shimmerEffect);
 }
 
 .glasnost-glass-button:focus-visible {
@@ -235,13 +273,16 @@ const handleClick = () => {
   cursor: not-allowed;
   transform: none !important;
   filter: grayscale(100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .glass-button--disabled:hover {
   background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.25) 0%, 
-    rgba(255, 255, 255, 0.1) 100%);
-  border-color: rgba(255, 255, 255, 0.3);
+    rgba(255, 255, 255, 0.15) 0%, 
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.03) 100%);
+  border-color: rgba(255, 255, 255, 0.25);
   box-shadow: 
     0 8px 32px rgba(31, 38, 135, 0.37),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -249,7 +290,8 @@ const handleClick = () => {
 }
 
 .glass-button--disabled .button-shine,
-.glass-button--disabled .button-glass-overlay {
+.glass-button--disabled .button-glass-overlay,
+.glass-button--disabled .button-liquid-distortion {
   display: none;
 }
 
@@ -260,7 +302,6 @@ const handleClick = () => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 /* Responsive design */
@@ -285,7 +326,12 @@ const handleClick = () => {
 @media (prefers-reduced-motion: reduce) {
   .glasnost-glass-button,
   .button-shine,
-  .button-glass-overlay {
+  .button-glass-overlay,
+  .button-liquid-distortion {
+    transition: none;
+  }
+  
+  .glasnost-glass-button::before {
     transition: none;
   }
 }

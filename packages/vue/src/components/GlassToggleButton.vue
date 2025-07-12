@@ -6,12 +6,16 @@ interface Props {
   label?: string
   disabled?: boolean
   className?: string
+  size?: 'small' | 'medium' | 'large'
+  variant?: 'primary' | 'secondary' | 'accent'
 }
 
 const props = withDefaults(defineProps<Props>(), {
   label: '',
   disabled: false,
-  className: ''
+  className: '',
+  size: 'medium',
+  variant: 'primary'
 })
 
 const emit = defineEmits<{
@@ -23,6 +27,8 @@ const toggleClasses = computed(() => {
     'glasnost-toggle-button',
     props.checked ? 'toggle-button--checked' : '',
     props.disabled ? 'toggle-button--disabled' : '',
+    `toggle-button--${props.size}`,
+    `toggle-button--${props.variant}`,
     props.className
   ].filter(Boolean).join(' ')
 })
@@ -48,6 +54,7 @@ const handleToggle = () => {
     
     <div class="toggle-track">
       <div class="toggle-track-overlay"></div>
+      <div class="toggle-liquid-distortion"></div>
       <div class="toggle-knob">
         <div class="knob-inner"></div>
         <div class="knob-shine"></div>
@@ -68,7 +75,17 @@ const handleToggle = () => {
   gap: 1rem;
   cursor: pointer;
   user-select: none;
-  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+  
+  /* CSS Custom Properties for responsive sizing */
+  --track-width: 64px;
+  --track-height: 36px;
+  --track-radius: calc(var(--track-height) / 2);
+  --knob-size: calc(var(--track-height) - 4px);
+  --knob-offset: 2px;
+  --knob-travel: calc(var(--track-width) - var(--knob-size) - (var(--knob-offset) * 2));
+  --label-size: 0.95rem;
+  --gap-size: 1rem;
 }
 
 .glasnost-toggle-button:hover {
@@ -92,23 +109,33 @@ const handleToggle = () => {
 
 .toggle-track {
   position: relative;
-  width: 64px;
-  height: 36px;
+  width: var(--track-width);
+  height: var(--track-height);
   background: linear-gradient(135deg, 
     rgba(255, 255, 255, 0.15) 0%, 
-    rgba(255, 255, 255, 0.08) 100%);
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.03) 100%);
   border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 24px;
-  backdrop-filter: blur(20px) saturate(180%) brightness(105%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%) brightness(105%);
+  border-radius: var(--track-radius);
   transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
-  filter: url(#subtleEnhancement);
-  box-shadow: 
-    inset 0 2px 8px rgba(0, 0, 0, 0.1),
-    0 4px 16px rgba(31, 38, 135, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
   overflow: hidden;
   transform-style: preserve-3d;
+}
+
+.toggle-track::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.3) 50%, 
+    transparent 100%);
+  transition: left 0.6s ease;
+  pointer-events: none;
+  border-radius: inherit;
 }
 
 .toggle-track-overlay {
@@ -118,11 +145,28 @@ const handleToggle = () => {
   right: 0;
   bottom: 0;
   background: radial-gradient(circle at 30% 30%, 
-    rgba(255, 255, 255, 0.12) 0%, 
+    rgba(255, 255, 255, 0.1) 0%, 
     transparent 70%);
   border-radius: inherit;
   transition: all 0.4s ease;
   opacity: 0;
+}
+
+.toggle-liquid-distortion {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    rgba(255, 255, 255, 0.05) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.05) 100%);
+  filter: url(#frostedGlass);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  border-radius: inherit;
 }
 
 .toggle-shine {
@@ -146,86 +190,56 @@ const handleToggle = () => {
     inset 0 2px 8px rgba(0, 0, 0, 0.1),
     0 6px 20px rgba(31, 38, 135, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  filter: url(#buttonGlass);
+  filter: url(#glassDistortion);
 }
 
 .glasnost-toggle-button:hover .toggle-track-overlay {
   opacity: 1;
 }
 
-.glasnost-toggle-button:hover .toggle-shine {
+.glasnost-toggle-button:hover .toggle-liquid-distortion {
+  opacity: 0.6;
+}
+
+.glasnost-toggle-button:hover .toggle-track::before {
   left: 100%;
 }
 
-/* Checked state track */
-.toggle-button--checked .toggle-track {
-  background: linear-gradient(135deg, 
-    rgba(99, 102, 241, 0.4) 0%, 
-    rgba(67, 56, 202, 0.3) 100%);
-  border-color: rgba(99, 102, 241, 0.5);
-  box-shadow: 
-    inset 0 2px 8px rgba(99, 102, 241, 0.2),
-    0 6px 20px rgba(99, 102, 241, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
-}
-
-.toggle-button--checked .toggle-track-overlay {
-  background: radial-gradient(circle at 70% 50%, 
-    rgba(99, 102, 241, 0.3) 0%, 
-    transparent 70%);
-}
-
-.toggle-button--checked.glasnost-toggle-button:hover .toggle-track {
-  border-color: rgba(99, 102, 241, 0.6);
-  box-shadow: 
-    inset 0 2px 8px rgba(99, 102, 241, 0.25),
-    0 8px 25px rgba(99, 102, 241, 0.4),
-    inset 0 2px 0 rgba(255, 255, 255, 0.5);
+.glasnost-toggle-button:hover .toggle-shine {
+  left: 100%;
 }
 
 /* Toggle knob */
 .toggle-knob {
   position: relative;
-  top: 2px;
-  left: 2px;
-  width: 32px;
-  height: 32px;
+  top: var(--knob-offset);
+  left: var(--knob-offset);
+  width: var(--knob-size);
+  height: var(--knob-size);
   background: linear-gradient(135deg, 
     rgba(255, 255, 255, 0.95) 0%, 
     rgba(255, 255, 255, 0.8) 100%);
   border-radius: 50%;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
   filter: url(#cleanGlow);
-  box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 1px 0 rgba(255, 255, 255, 0.2);
   z-index: 2;
   transform-style: preserve-3d;
   overflow: hidden;
 }
 
 .toggle-button--checked .toggle-knob {
-  transform: translateX(28px);
+  transform: translateX(var(--knob-travel));
   background: linear-gradient(135deg, 
     rgba(255, 255, 255, 0.98) 0%, 
     rgba(255, 255, 255, 0.85) 100%);
-  box-shadow: 
-    0 6px 16px rgba(99, 102, 241, 0.3),
-    inset 0 2px 0 rgba(255, 255, 255, 0.95),
-    0 2px 0 rgba(99, 102, 241, 0.2);
 }
 
 .glasnost-toggle-button:hover .toggle-knob {
   transform: scale(1.1);
-  box-shadow: 
-    0 6px 16px rgba(0, 0, 0, 0.2),
-    inset 0 2px 0 rgba(255, 255, 255, 0.95),
-    0 2px 0 rgba(255, 255, 255, 0.3);
 }
 
 .toggle-button--checked.glasnost-toggle-button:hover .toggle-knob {
-  transform: translateX(28px) scale(1.1);
+  transform: translateX(var(--knob-travel)) scale(1.1);
 }
 
 /* Knob inner glow */
@@ -233,8 +247,8 @@ const handleToggle = () => {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 24px;
-  height: 24px;
+  width: calc(var(--knob-size) * 0.75);
+  height: calc(var(--knob-size) * 0.75);
   background: radial-gradient(circle, 
     rgba(255, 255, 255, 0.8) 0%, 
     rgba(255, 255, 255, 0.3) 60%,
@@ -280,17 +294,15 @@ const handleToggle = () => {
 
 /* Toggle label */
 .toggle-label {
-  font-size: 0.95rem;
+  font-size: var(--label-size);
   font-weight: 600;
   color: rgba(255, 255, 255, 0.92);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
   letter-spacing: 0.025em;
+  transition: all 0.3s ease;
 }
 
 .glasnost-toggle-button:hover .toggle-label {
   color: rgba(255, 255, 255, 0.98);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 /* Focus states */
@@ -306,57 +318,146 @@ const handleToggle = () => {
 }
 
 .toggle-button--checked.glasnost-toggle-button:active .toggle-knob {
-  transform: translateX(28px) scale(0.95);
+  transform: translateX(var(--knob-travel)) scale(0.95);
 }
 
 /* Disabled state enhancements */
-.toggle-button--disabled .toggle-track,
+.toggle-button--disabled .toggle-track {
+  background: rgba(255,255,255,0.3);
+  border: 1.5px solid rgba(200,200,200,0.7);
+  opacity: 0.7;
+}
+
 .toggle-button--disabled .toggle-knob {
-  filter: grayscale(100%) !important;
-  opacity: 0.4;
+  background: rgba(255,255,255,0.7);
+  border: 1.5px solid rgba(200,200,200,0.7);
+  opacity: 0.8;
 }
 
 .toggle-button--disabled .toggle-shine,
 .toggle-button--disabled .knob-shine,
-.toggle-button--disabled .toggle-track-overlay {
+.toggle-button--disabled .toggle-track-overlay,
+.toggle-button--disabled .toggle-liquid-distortion {
   display: none;
+}
+
+/* Size variants using CSS custom properties */
+.toggle-button--small {
+  --track-width: 40px;
+  --track-height: 22px;
+  --label-size: 0.85rem;
+  --gap-size: 0.75rem;
+  gap: var(--gap-size);
+}
+
+.toggle-button--medium {
+  --track-width: 64px;
+  --track-height: 36px;
+  --label-size: 0.95rem;
+  --gap-size: 1rem;
+  gap: var(--gap-size);
+}
+
+.toggle-button--large {
+  --track-width: 88px;
+  --track-height: 48px;
+  --label-size: 1.15rem;
+  --gap-size: 1.25rem;
+  gap: var(--gap-size);
+}
+
+/* Variant styles */
+.toggle-button--primary.toggle-button--checked .toggle-track {
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.4) 0%, 
+    rgba(67, 56, 202, 0.3) 100%);
+  border-color: rgba(99, 102, 241, 0.5);
+}
+
+.toggle-button--primary.toggle-button--checked .toggle-track-overlay {
+  background: radial-gradient(circle at 70% 50%, 
+    rgba(99, 102, 241, 0.3) 0%, 
+    transparent 70%);
+}
+
+.toggle-button--primary.toggle-button--checked.glasnost-toggle-button:hover .toggle-track {
+  border-color: rgba(99, 102, 241, 0.6);
+  box-shadow: 
+    inset 0 2px 8px rgba(99, 102, 241, 0.25),
+    0 8px 25px rgba(99, 102, 241, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.5);
+}
+
+.toggle-button--secondary.toggle-button--checked .toggle-track {
+  background: linear-gradient(135deg, 
+    rgba(107, 114, 128, 0.4) 0%, 
+    rgba(75, 85, 99, 0.3) 100%);
+  border-color: rgba(107, 114, 128, 0.5);
+}
+
+.toggle-button--secondary.toggle-button--checked .toggle-track-overlay {
+  background: radial-gradient(circle at 70% 50%, 
+    rgba(107, 114, 128, 0.3) 0%, 
+    transparent 70%);
+}
+
+.toggle-button--secondary.toggle-button--checked.glasnost-toggle-button:hover .toggle-track {
+  border-color: rgba(107, 114, 128, 0.6);
+  box-shadow: 
+    inset 0 2px 8px rgba(107, 114, 128, 0.25),
+    0 8px 25px rgba(107, 114, 128, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.5);
+}
+
+.toggle-button--accent.toggle-button--checked .toggle-track {
+  background: linear-gradient(135deg, 
+    rgba(236, 72, 153, 0.4) 0%, 
+    rgba(190, 24, 93, 0.3) 100%);
+  border-color: rgba(236, 72, 153, 0.5);
+}
+
+.toggle-button--accent.toggle-button--checked .toggle-track-overlay {
+  background: radial-gradient(circle at 70% 50%, 
+    rgba(236, 72, 153, 0.3) 0%, 
+    transparent 70%);
+}
+
+.toggle-button--accent.toggle-button--checked.glasnost-toggle-button:hover .toggle-track {
+  border-color: rgba(236, 72, 153, 0.6);
+  box-shadow: 
+    inset 0 2px 8px rgba(236, 72, 153, 0.25),
+    0 8px 25px rgba(236, 72, 153, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.5);
+}
+
+.toggle-button--accent.toggle-button--checked .knob-inner {
+  background: radial-gradient(circle, 
+    rgba(236, 72, 153, 0.6) 0%, 
+    rgba(236, 72, 153, 0.2) 60%,
+    transparent 100%);
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
-  .glasnost-toggle-button {
-    gap: 0.75rem;
+  .toggle-button--small {
+    --track-width: 32px;
+    --track-height: 18px;
+    --label-size: 0.8rem;
+    --gap-size: 0.5rem;
   }
   
-  .toggle-track {
-    width: 56px;
-    height: 32px;
+  .toggle-button--medium {
+    --track-width: 48px;
+    --track-height: 28px;
+    --label-size: 0.875rem;
+    --gap-size: 0.75rem;
   }
   
-  .toggle-knob {
-    width: 28px;
-    height: 28px;
-  }
-  
-  .toggle-button--checked .toggle-knob {
-    transform: translateX(24px);
-  }
-  
-  .toggle-button--checked.glasnost-toggle-button:hover .toggle-knob {
-    transform: translateX(24px) scale(1.1);
-  }
-  
-  .toggle-button--checked.glasnost-toggle-button:active .toggle-knob {
-    transform: translateX(24px) scale(0.95);
-  }
-  
-  .toggle-label {
-    font-size: 0.875rem;
-  }
-  
-  .knob-inner {
-    width: 20px;
-    height: 20px;
+  .toggle-button--large {
+    --track-width: 64px;
+    --track-height: 36px;
+    --label-size: 1rem;
+    --gap-size: 1rem;
   }
 }
 
@@ -368,9 +469,14 @@ const handleToggle = () => {
   .toggle-shine,
   .knob-shine,
   .toggle-track-overlay,
+  .toggle-liquid-distortion,
   .knob-inner {
     transition: none;
     animation: none;
+  }
+  
+  .toggle-track::before {
+    transition: none;
   }
   
   .glasnost-toggle-button:hover {

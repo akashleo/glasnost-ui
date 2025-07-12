@@ -1,6 +1,50 @@
 export const liquidGlassFilters = `
 <svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
   <defs>
+    <!-- Advanced Glass Morphism Filter -->
+    <filter id="glassDistortion" x="-50%" y="-50%" width="200%" height="200%">
+      <feTurbulence baseFrequency="0.02" numOctaves="3" result="turbulence"/>
+      <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="8" result="displacement"/>
+      <feGaussianBlur in="displacement" stdDeviation="4" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" 
+        values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.9 0"/>
+      <feOffset in="blur" dx="0" dy="8" result="shadow"/>
+      <feMerge>
+        <feMergeNode in="shadow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Liquid Glass Navbar Filter -->
+    <filter id="liquidNavbar" x="-50%" y="-50%" width="200%" height="200%">
+      <feTurbulence baseFrequency="0.01" numOctaves="2" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" result="distort"/>
+      <feGaussianBlur in="distort" stdDeviation="2" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" 
+        values="1.1 0 0 0 0  0 1.1 0 0 0  0 0 1.2 0 0  0 0 0 0.95 0"/>
+      <feOffset in="blur" dx="0" dy="4" result="shadow"/>
+      <feMerge>
+        <feMergeNode in="shadow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Frosted Glass Effect -->
+    <filter id="frostedGlass" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence baseFrequency="0.9" numOctaves="4" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer in="noise" result="morenoise">
+        <feFuncA type="discrete" tableValues="0.1 0.15 0.2 0.25 0.3"/>
+      </feComponentTransfer>
+      <feComposite in="SourceGraphic" in2="morenoise" operator="over" result="composite"/>
+      <feGaussianBlur in="composite" stdDeviation="1.5" result="blur"/>
+      <feOffset in="blur" dx="0" dy="2" result="offset"/>
+      <feMerge>
+        <feMergeNode in="offset"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
     <!-- Clean Glass Base Filter -->
     <filter id="glassBase" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>

@@ -23,6 +23,7 @@ onMounted(() => {
 <template>
   <div :class="`glasnost-profile-card ${className}`">
     <div class="profile-glass-overlay"></div>
+    <div class="profile-liquid-distortion"></div>
     <div class="profile-card-content">
       <div class="avatar-container">
         <div class="avatar-glow-ring"></div>
@@ -46,10 +47,7 @@ onMounted(() => {
       </div>
     </div>
 
-    <!-- Enhanced floating elements -->
-    <div class="floating-orb orb-1"></div>
-    <div class="floating-orb orb-2"></div>
-    <div class="floating-orb orb-3"></div>
+
     <div class="card-shine"></div>
   </div>
 </template>
@@ -60,22 +58,33 @@ onMounted(() => {
   width: 100%;
   max-width: 340px;
   padding: 2.5rem 2rem;
-  backdrop-filter: blur(40px) saturate(200%) brightness(120%);
-  -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(120%);
+  /* backdrop-filter: blur(2px) saturate(180%) brightness(120%);
+  -webkit-backdrop-filter: blur(2px) saturate(180%) brightness(120%); */
   background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.25) 0%, 
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0.05) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+    rgba(255, 255, 255, 0.15) 0%, 
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.03) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 24px;
-  filter: url(#profileGlass);
-  box-shadow: 
-    0 20px 60px rgba(31, 38, 135, 0.37),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    0 1px 0 rgba(255, 255, 255, 0.1);
   transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
   overflow: hidden;
   transform-style: preserve-3d;
+}
+
+.glasnost-profile-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.3) 50%, 
+    transparent 100%);
+  transition: left 0.6s ease;
+  pointer-events: none;
+  border-radius: inherit;
 }
 
 .profile-glass-overlay {
@@ -84,14 +93,30 @@ onMounted(() => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, 
+  background: radial-gradient(circle at 30% 40%, 
     rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  border-radius: inherit;
+}
+
+.profile-liquid-distortion {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    rgba(255, 255, 255, 0.05) 0%,
     transparent 50%,
     rgba(255, 255, 255, 0.05) 100%);
-  border-radius: inherit;
+  filter: url(#frostedGlass);
   opacity: 0;
   transition: opacity 0.4s ease;
   pointer-events: none;
+  border-radius: inherit;
 }
 
 .card-shine {
@@ -112,18 +137,23 @@ onMounted(() => {
 .glasnost-profile-card:hover {
   transform: translateY(-12px) rotateX(5deg) rotateY(5deg);
   background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.3) 0%, 
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0.1) 100%);
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 
-    0 30px 80px rgba(31, 38, 135, 0.5),
-    inset 0 2px 0 rgba(255, 255, 255, 0.6),
-    0 2px 0 rgba(255, 255, 255, 0.2);
+    rgba(255, 255, 255, 0.2) 0%, 
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.06) 100%);
+  border-color: rgba(255, 255, 255, 0.35);
+  filter: url(#glassDistortion);
 }
 
 .glasnost-profile-card:hover .profile-glass-overlay {
   opacity: 1;
+}
+
+.glasnost-profile-card:hover .profile-liquid-distortion {
+  opacity: 0.6;
+}
+
+.glasnost-profile-card:hover::before {
+  left: 100%;
 }
 
 .glasnost-profile-card:hover .card-shine {
@@ -181,17 +211,11 @@ onMounted(() => {
   transition: all 0.4s ease;
   position: relative;
   z-index: 3;
-  box-shadow: 
-    0 8px 32px rgba(31, 38, 135, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .glasnost-profile-card:hover .profile-avatar {
   transform: scale(1.1);
   border-color: rgba(255, 255, 255, 0.6);
-  box-shadow: 
-    0 12px 40px rgba(31, 38, 135, 0.6),
-    inset 0 2px 0 rgba(255, 255, 255, 0.5);
 }
 
 .avatar-shimmer {
@@ -236,7 +260,6 @@ onMounted(() => {
   font-weight: 700;
   color: rgba(255, 255, 255, 0.95);
   margin: 0 0 0.75rem 0;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   letter-spacing: 0.025em;
   background: linear-gradient(135deg, 
     rgba(255, 255, 255, 0.95) 0%,
@@ -251,68 +274,12 @@ onMounted(() => {
   color: rgba(255, 255, 255, 0.75);
   margin: 0;
   font-weight: 500;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 .profile-actions {
   width: 100%;
 }
 
-/* Enhanced floating orbs */
-.floating-orb {
-  position: absolute;
-  background: radial-gradient(circle, 
-    rgba(255, 255, 255, 0.2) 0%, 
-    rgba(255, 255, 255, 0.1) 50%,
-    transparent 100%);
-  border-radius: 50%;
-  pointer-events: none;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.orb-1 {
-  width: 24px;
-  height: 24px;
-  top: 15%;
-  left: 10%;
-  animation: floatOrb 8s ease-in-out infinite;
-}
-
-.orb-2 {
-  width: 18px;
-  height: 18px;
-  top: 70%;
-  right: 15%;
-  animation: floatOrb 10s ease-in-out infinite 2s;
-}
-
-.orb-3 {
-  width: 20px;
-  height: 20px;
-  bottom: 20%;
-  left: 20%;
-  animation: floatOrb 12s ease-in-out infinite 4s;
-}
-
-@keyframes floatOrb {
-  0%, 100% { 
-    transform: translateY(0) rotate(0deg); 
-    opacity: 0.3; 
-  }
-  25% { 
-    transform: translateY(-15px) rotate(90deg); 
-    opacity: 0.6; 
-  }
-  50% { 
-    transform: translateY(-25px) rotate(180deg); 
-    opacity: 0.4; 
-  }
-  75% { 
-    transform: translateY(-10px) rotate(270deg); 
-    opacity: 0.7; 
-  }
-}
 
 /* Responsive design */
 @media (max-width: 768px) {
@@ -352,11 +319,15 @@ onMounted(() => {
   .profile-avatar,
   .avatar-shimmer,
   .avatar-glow-ring,
-  .floating-orb,
   .card-shine,
-  .profile-glass-overlay {
+  .profile-glass-overlay,
+  .profile-liquid-distortion {
     transition: none;
     animation: none;
+  }
+  
+  .glasnost-profile-card::before {
+    transition: none;
   }
   
   .glasnost-profile-card:hover {
