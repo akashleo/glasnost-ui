@@ -10,8 +10,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@glasnost/shared": "workspace:*",
-    "@glasnost/vue": "workspace:*",
+    "@glasnost-ui/shared": "workspace:*",
+    "@glasnost-ui/vue": "workspace:*",
     "vue": "^3.3.0"
   },
   "devDependencies": {

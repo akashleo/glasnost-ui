@@ -17,10 +17,10 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@glasnost/shared": ["./packages/shared/src"],
-      "@glasnost/react": ["./packages/react/src"],
-      "@glasnost/vue": ["./packages/vue/src"],
-      "@glasnost/svelte": ["./packages/svelte/src"]
+      "@glasnost-ui/shared": ["./packages/shared/src"],
+      "@glasnost-ui/react": ["./packages/react/src"],
+      "@glasnost-ui/vue": ["./packages/vue/src"],
+      "@glasnost-ui/svelte": ["./packages/svelte/src"]
     }
   },
   "include": ["packages/*/src/**/*", "apps/*/src/**/*"],

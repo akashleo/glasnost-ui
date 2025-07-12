@@ -16,11 +16,11 @@ export default defineConfig({
       formats: ['es', 'cjs']
     },
     rollupOptions: {
-      external: ['svelte', '@glasnost/shared'],
+      external: ['svelte', '@glasnost-ui/shared'],
       output: {
         globals: {
           svelte: 'Svelte',
-          '@glasnost/shared': 'GlasnostShared'
+          '@glasnost-ui/shared': 'GlasnostShared'
         }
       }
     },

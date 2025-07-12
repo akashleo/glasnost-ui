@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, computed } from 'vue'
-import { injectLiquidGlassFilters } from '@glasnost/shared'
+import { injectLiquidGlassFilters } from '@glasnost-ui/shared'
 
 interface Props {
   variant?: 'primary' | 'secondary' | 'accent'

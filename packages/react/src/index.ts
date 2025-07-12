@@ -17,6 +17,6 @@ export type {
   GlassButtonProps,
   HamburgerMenuProps,
   GlassToggleButtonProps
-} from '@glasnost/shared'
+} from '@glasnost-ui/shared'
 
-export { injectLiquidGlassFilters } from '@glasnost/shared' 
+export { injectLiquidGlassFilters } from '@glasnost-ui/shared' 

@@ -6,7 +6,7 @@ import {
   GlassButton,
   HamburgerMenu,
   GlassToggleButton,
-} from '@glasnost/react';
+} from '@glasnost-ui/react';
 
 import './App.css';
 
@@ -244,19 +244,19 @@ const App: React.FC = () => {
                   <GlassToggleButton 
                     size="small" 
                     checked={toggleSizes.small}
-                    onChange={(checked) => handleSizeToggle('small', checked)}
+                    onChange={(checked: boolean) => handleSizeToggle('small', checked)}
                     label="Small Toggle" 
                   />
                   <GlassToggleButton 
                     size="medium" 
                     checked={toggleSizes.medium}
-                    onChange={(checked) => handleSizeToggle('medium', checked)}
+                    onChange={(checked: boolean) => handleSizeToggle('medium', checked)}
                     label="Medium Toggle" 
                   />
                   <GlassToggleButton 
                     size="large" 
                     checked={toggleSizes.large}
-                    onChange={(checked) => handleSizeToggle('large', checked)}
+                    onChange={(checked: boolean) => handleSizeToggle('large', checked)}
                     label="Large Toggle" 
                   />
                 </div>
@@ -269,21 +269,21 @@ const App: React.FC = () => {
                     variant="primary"
                     size="small"
                     checked={toggleVariants.primary}
-                    onChange={(checked) => handleVariantToggle('primary', checked)}
+                    onChange={(checked: boolean) => handleVariantToggle('primary', checked)}
                     label="Primary Small" 
                   />
                   <GlassToggleButton 
                     variant="secondary"
                     size="medium"
                     checked={toggleVariants.secondary}
-                    onChange={(checked) => handleVariantToggle('secondary', checked)}
+                    onChange={(checked: boolean) => handleVariantToggle('secondary', checked)}
                     label="Secondary Medium" 
                   />
                   <GlassToggleButton 
                     variant="accent"
                     size="large"
                     checked={toggleVariants.accent}
-                    onChange={(checked) => handleVariantToggle('accent', checked)}
+                    onChange={(checked: boolean) => handleVariantToggle('accent', checked)}
                     label="Accent Large" 
                   />
                 </div>
@@ -294,7 +294,7 @@ const App: React.FC = () => {
                 <div className="toggle-row">
                   <GlassToggleButton 
                     checked={toggleStates.notifications}
-                    onChange={(checked) => handleStateToggle('notifications', checked)}
+                    onChange={(checked: boolean) => handleStateToggle('notifications', checked)}
                     label="Notifications" 
                   />
                   <GlassToggleButton 

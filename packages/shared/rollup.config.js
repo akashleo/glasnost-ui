@@ -12,6 +12,12 @@ export default {
       format: 'es'
     }
   ],
-  plugins: [typescript()],
+  plugins: [
+    typescript({
+      declaration: true,
+      declarationDir: 'dist',
+      rootDir: 'src'
+    })
+  ],
   external: []
 } 

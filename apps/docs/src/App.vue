@@ -7,7 +7,7 @@ import {
   GlassButton,
   HamburgerMenu,
   GlassToggleButton
-} from '@glasnost/vue'
+} from '@glasnost-ui/vue'
 
 // Component state
 const isMenuOpen = ref(false)

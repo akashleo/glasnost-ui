@@ -1,5 +1,5 @@
 {
-  "name": "@glasnost/svelte",
+  "name": "@glasnost-ui/svelte",
   "version": "0.1.0",
   "description": "Svelte components for Glasnost UI with liquid glass aesthetics",
   "type": "module",
@@ -17,7 +17,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@glasnost/shared": "workspace:*"
+    "@glasnost-ui/shared": "workspace:*"
   },
   "peerDependencies": {
     "svelte": "^4.0.0"

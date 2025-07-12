@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { injectLiquidGlassFilters } from '@glasnost/shared'
+  import { injectLiquidGlassFilters } from '@glasnost-ui/shared'
 
   export let avatar = ''
   export let name = ''

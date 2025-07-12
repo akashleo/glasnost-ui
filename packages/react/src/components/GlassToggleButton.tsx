@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { injectLiquidGlassFilters } from '@glasnost/shared'
-import type { GlassToggleButtonProps } from '@glasnost/shared'
+import { injectLiquidGlassFilters } from '@glasnost-ui/shared'
+import type { GlassToggleButtonProps } from '@glasnost-ui/shared'
 
 export interface ReactGlassToggleButtonProps extends Omit<GlassToggleButtonProps, 'onChange'> {
   checked: boolean

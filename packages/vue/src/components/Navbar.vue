@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { injectLiquidGlassFilters } from '@glasnost/shared'
+import { injectLiquidGlassFilters } from '@glasnost-ui/shared'
 
 interface Props {
   leftSlot?: any

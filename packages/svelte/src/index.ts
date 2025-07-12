@@ -14,9 +14,9 @@ export type {
   GlassButtonProps,
   HamburgerMenuProps,
   GlassToggleButtonProps
-} from '@glasnost/shared'
+} from '@glasnost-ui/shared'
 
-export { injectLiquidGlassFilters } from '@glasnost/shared'
+export { injectLiquidGlassFilters } from '@glasnost-ui/shared'
 
-// Note: Consuming applications should import styles from @glasnost/shared directly:
-// import '@glasnost/shared/dist/styles.css' 
+// Note: Consuming applications should import styles from @glasnost-ui/shared directly:
+// import '@glasnost-ui/shared/dist/styles.css' 

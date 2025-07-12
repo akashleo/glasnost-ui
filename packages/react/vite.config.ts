@@ -11,11 +11,12 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: ['react', 'react-dom', '@glasnost-ui/shared'],
       output: {
         globals: {
           react: 'React',
-          'react-dom': 'ReactDOM'
+          'react-dom': 'ReactDOM',
+          '@glasnost-ui/shared': 'GlasnostShared'
         }
       }
     }

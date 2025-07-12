@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { injectLiquidGlassFilters } from '@glasnost/shared'
-import type { GlassButtonProps } from '@glasnost/shared'
+import { injectLiquidGlassFilters } from '@glasnost-ui/shared'
+import type { GlassButtonProps } from '@glasnost-ui/shared'
 
 export interface ReactGlassButtonProps extends Omit<GlassButtonProps, 'onClick' | 'children'> {
   variant?: 'primary' | 'secondary' | 'accent'

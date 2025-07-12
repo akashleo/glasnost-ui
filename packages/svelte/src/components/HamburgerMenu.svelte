@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, createEventDispatcher } from 'svelte'
-  import { injectLiquidGlassFilters } from '@glasnost/shared'
+  import { injectLiquidGlassFilters } from '@glasnost-ui/shared'
 
   export let isOpen = false
   export let className = ''

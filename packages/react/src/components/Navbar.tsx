@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { injectLiquidGlassFilters } from '@glasnost/shared'
-import type { NavbarProps } from '@glasnost/shared'
+import { injectLiquidGlassFilters } from '@glasnost-ui/shared'
+import type { NavbarProps } from '@glasnost-ui/shared'
 
 export interface ReactNavbarProps extends Omit<NavbarProps, 'children'> {
   leftSlot?: React.ReactNode
