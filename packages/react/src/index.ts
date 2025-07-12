@@ -1,3 +1,6 @@
+// Import CSS styles
+import './index.css'
+
 export { Navbar } from './components/Navbar'
 export { ProfileCard } from './components/ProfileCard'
 export { GlassButton } from './components/GlassButton'
@@ -16,7 +19,4 @@ export type {
   GlassToggleButtonProps
 } from '@glasnost/shared'
 
-export { injectLiquidGlassFilters } from '@glasnost/shared'
-
-// Import shared styles
-import '@glasnost/shared/styles' 
+export { injectLiquidGlassFilters } from '@glasnost/shared' 

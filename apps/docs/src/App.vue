@@ -34,9 +34,9 @@ const toggleStates = ref({
 })
 
 const userProfile = {
-  avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-  name: 'Alex Johnson',
-  title: 'Frontend Developer'
+  avatar: 'https://scontent.fblr8-1.fna.fbcdn.net/v/t39.30808-6/228591002_4568736809845299_2656376336883463931_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=Fz78mmlwA60Q7kNvwFE-VjL&_nc_oc=AdmNdG3BMJfR2of-84iVsPqqFAqvHCJvo-7LzJJrVsXiSjjagRDBNaCDWa-Lj3BVNFk&_nc_zt=23&_nc_ht=scontent.fblr8-1.fna&_nc_gid=AcpxF6AP30QFZiLIiXOtMg&oh=00_AfR6wwEHvI9CTWPAmpI1BzwhjdsEzeGB180HS-34Gj-DBw&oe=687879E1',
+  name: 'Akash Ghosh',
+  title: 'Frontend Engineer'
 }
 
 // Component list for sidebar
@@ -369,14 +369,13 @@ const selectComponent = (componentId: string) => {
                 <div class="navbar-demo">
                   <Navbar>
                     <template #left>
-                      <span aria-label="logo" title="Logo" style="font-size: 1.5rem;">🌟</span>
+                      <HamburgerMenu :isOpen="isMenuOpen" @toggle="handleMenuToggle" />
                     </template>
                     <template #center>
                       <span class="brand-name" style="font-weight: 600; font-size: 1.1rem;">Glasnost UI</span>
                     </template>
                     <template #right>
-                      <GlassButton color="primary" style="margin-right: 1rem;">Start</GlassButton>
-                      <HamburgerMenu :isOpen="isMenuOpen" @toggle="handleMenuToggle" />
+                      <GlassButton color="primary" >Start</GlassButton>
                     </template>
                   </Navbar>
                 </div>
