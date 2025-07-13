@@ -1,6 +1,6 @@
 {
   "name": "@glasnost-ui/react",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React components for Glasnost UI with liquid glass aesthetics",
   "keywords": [
     "react-glass-ui",
@@ -32,7 +32,7 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist",
-    "src"
+    "README.md"
   ],
   "scripts": {
     "build": "vite build",
@@ -41,7 +41,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@glasnost-ui/shared": "workspace: 0.1.1"
+    "@glasnost-ui/shared": "workspace: 0.1.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",

@@ -1,0 +1,28 @@
+# Config files
+vite.config.ts
+vite.config.js
+rollup.config.js
+tsconfig.json
+vitest.config.ts
+vitest.config.js
+
+# Test files
+__tests__/
+*.test.ts
+*.spec.ts
+*.test.tsx
+*.spec.tsx
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific files
+.DS_Store 
+
+# Map files
+*.map
+
+# Source files
+src/

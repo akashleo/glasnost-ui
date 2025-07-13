@@ -1,6 +1,6 @@
 {
   "name": "@glasnost-ui/svelte",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Svelte components for Glasnost UI with liquid glass aesthetics",
   "keywords": [
     "svelte-glass-ui",
@@ -34,7 +34,7 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist",
-    "src"
+    "README.md"
   ],
   "scripts": {
     "build": "vite build && tsc --emitDeclarationOnly",
@@ -43,7 +43,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@glasnost-ui/shared": "workspace:0.1.1"
+    "@glasnost-ui/shared": "workspace:0.1.2"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.4.0",
