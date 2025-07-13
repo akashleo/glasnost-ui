@@ -2,9 +2,35 @@
   "name": "@glasnost-ui/svelte",
   "version": "0.1.0",
   "description": "Svelte components for Glasnost UI with liquid glass aesthetics",
+  "keywords": [
+    "svelte-glass-ui",
+    "liquid-glass",
+    "svelte-liquid-glass",
+    "glass",
+    "glassmorphism",
+    "transparent",
+    "glasnost",
+    "svelte-glasnost"
+  ],
+  "homepage": "https://github.com/akashleo/glasnost-ui#readme",
+  "bugs": {
+    "url": "https://github.com/akashleo/glasnost-ui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akashleo/glasnost-ui.git"
+  },
+  "license": "ISC",
+  "author": "Akash Ghosh",
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js"
+    }
+  },
   "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
@@ -19,9 +45,6 @@
   "dependencies": {
     "@glasnost-ui/shared": "workspace:0.1.1"
   },
-  "peerDependencies": {
-    "svelte": "^4.0.0"
-  },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.4.0",
     "@types/node": "^18.0.0",
@@ -30,12 +53,9 @@
     "vitest": "^0.34.0",
     "typescript": "^5.0.0"
   },
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.esm.js",
-      "require": "./dist/index.cjs.js"
-    }
+  "peerDependencies": {
+    "svelte": "^4.0.0"
   },
+  "module": "dist/index.esm.js",
   "sideEffects": false
-} 
+}
