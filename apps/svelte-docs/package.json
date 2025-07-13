@@ -1,6 +1,6 @@
 {
-  "name": "@glasnost/svelte-docs",
-  "version": "0.1.0",
+  "name": "@glasnost-ui/svelte-docs",
+  "version": "0.1.4",
   "private": true,
   "type": "module",
   "scripts": {

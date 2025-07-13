@@ -5,8 +5,8 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      '@glasnost/shared': '../../packages/shared/src/index.ts',
-      '@glasnost/vue': '../../packages/vue/src/index.ts'
+      '@glasnost-ui/shared': '../../packages/shared/src/index.ts',
+      '@glasnost-ui/vue': '../../packages/vue/src/index.ts'
     }
   },
   server: {

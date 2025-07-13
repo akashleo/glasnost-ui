@@ -2,8 +2,33 @@
   "name": "@glasnost-ui/react",
   "version": "0.1.0",
   "description": "React components for Glasnost UI with liquid glass aesthetics",
+  "keywords": [
+    "react-glass-ui",
+    "react-glasnost",
+    "react-transparent",
+    "glasnost",
+    "glass",
+    "liquid-glass"
+  ],
+  "homepage": "https://github.com/akashleo/glasnost-ui#readme",
+  "bugs": {
+    "url": "https://github.com/akashleo/glasnost-ui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akashleo/glasnost-ui.git"
+  },
+  "license": "ISC",
+  "author": "Akash Ghosh",
+  "type": "commonjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "main": "dist/index.umd.js",
-  "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
@@ -16,11 +41,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@glasnost-ui/shared": "workspace:0.1.0"
-  },
-  "peerDependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "@glasnost-ui/shared": "workspace: 0.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",
@@ -32,11 +53,9 @@
     "vitest": "^0.34.0",
     "typescript": "^5.0.0"
   },
-  "exports": {
-    ".": {
-      "import": "./dist/index.es.js",
-      "require": "./dist/index.umd.js",
-      "types": "./dist/index.d.ts"
-    }
-  }
-} 
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "module": "dist/index.es.js"
+}

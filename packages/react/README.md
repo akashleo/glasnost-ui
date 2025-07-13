@@ -15,13 +15,13 @@ Beautiful liquid glass UI components for React applications. Create stunning, mo
 
 ```bash
 # Using npm
-npm install @glasnost/react
+npm install @glasnost-ui/react
 
 # Using pnpm
-pnpm add @glasnost/react
+pnpm add @glasnost-ui/react
 
 # Using yarn
-yarn add @glasnost/react
+yarn add @glasnost-ui/react
 ```
 
 ## 📦 Available Components
@@ -30,7 +30,7 @@ yarn add @glasnost/react
 Top navigation bar with glass effect and flexible slots.
 
 ```jsx
-import { Navbar, GlassButton, HamburgerMenu } from '@glasnost/react'
+import { Navbar, GlassButton, HamburgerMenu } from '@glasnost-ui/react'
 
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -54,7 +54,7 @@ const App = () => {
 Display user profiles with avatar and actions.
 
 ```jsx
-import { ProfileCard, GlassButton } from '@glasnost/react'
+import { ProfileCard, GlassButton } from '@glasnost-ui/react'
 
 const UserProfile = () => (
   <ProfileCard
@@ -75,7 +75,7 @@ const UserProfile = () => (
 Display comments with liquid glass effects.
 
 ```jsx
-import { CommentListCard } from '@glasnost/react'
+import { CommentListCard } from '@glasnost-ui/react'
 
 const Comments = () => (
   <CommentListCard 
@@ -97,7 +97,7 @@ const Comments = () => (
 Interactive buttons with glass morphism effects.
 
 ```jsx
-import { GlassButton } from '@glasnost/react'
+import { GlassButton } from '@glasnost-ui/react'
 
 const ButtonExample = () => (
   <div style={{ display: 'flex', gap: '1rem' }}>
@@ -128,7 +128,7 @@ Props:
 Animated hamburger menu button.
 
 ```jsx
-import { HamburgerMenu } from '@glasnost/react'
+import { HamburgerMenu } from '@glasnost-ui/react'
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -146,7 +146,7 @@ const Menu = () => {
 Toggle switch with glass effects.
 
 ```jsx
-import { GlassToggleButton } from '@glasnost/react'
+import { GlassToggleButton } from '@glasnost-ui/react'
 
 const Settings = () => {
   const [darkMode, setDarkMode] = useState(false)
@@ -220,7 +220,7 @@ import type {
   CommentListCardProps,
   HamburgerMenuProps,
   GlassToggleButtonProps
-} from '@glasnost/react'
+} from '@glasnost-ui/react'
 ```
 
 ## 🌟 Best Practices
@@ -248,5 +248,5 @@ Contributions welcome! Please read our contributing guide.
 
 ## 🔗 Related Packages
 
-- `@glasnost/vue` - Vue 3 components
-- `@glasnost/shared` - Shared utilities and types 
+- `@glasnost-ui/vue` - Vue 3 components
+- `@glasnost-ui/shared` - Shared utilities and types 

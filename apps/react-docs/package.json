@@ -1,5 +1,5 @@
 {
-  "name": "@glasnost/react-docs",
+  "name": "@glasnost-ui/react-docs",
   "version": "0.1.0",
   "description": "Documentation and examples for Glasnost UI React components",
   "private": true,

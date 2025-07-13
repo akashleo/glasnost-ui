@@ -28,7 +28,7 @@ import {
   Navbar, 
   ProfileCard, 
   GlassButton 
-} from '@glasnost/vue'
+} from '@glasnost-ui/vue'
 
 const userProfile = {
   avatar: 'https://example.com/avatar.jpg',
@@ -63,7 +63,7 @@ import {
   Navbar, 
   ProfileCard, 
   GlassButton 
-} from '@glasnost/react'
+} from '@glasnost-ui/react'
 
 const userProfile = {
   avatar: 'https://example.com/avatar.jpg',
@@ -96,7 +96,7 @@ export function App() {
   import { 
     Navbar, 
     GlassButton 
-  } from '@glasnost/svelte'
+  } from '@glasnost-ui/svelte'
 
   const userProfile = {
     avatar: 'https://example.com/avatar.jpg',
@@ -245,7 +245,7 @@ glasnost/
 3. Import shared utilities:
 ```vue
 <script setup>
-import { injectLiquidGlassFilters } from '@glasnost/shared'
+import { injectLiquidGlassFilters } from '@glasnost-ui/shared'
 
 onMounted(() => {
   injectLiquidGlassFilters()

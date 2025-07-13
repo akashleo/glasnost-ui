@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [svelte()],
   resolve: {
     alias: {
-      '@glasnost/shared': resolve(__dirname, '../../packages/shared/src/index.ts'),
-      '@glasnost/svelte': resolve(__dirname, '../../packages/svelte/src/index.ts')
+      '@glasnost-ui/shared': resolve(__dirname, '../../packages/shared/src'),
+      '@glasnost-ui/svelte': resolve(__dirname, '../../packages/svelte/src')
     }
   },
   server: {

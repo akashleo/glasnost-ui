@@ -6,10 +6,10 @@ Glasnost UI provides native components for Vue 3, React, and Svelte, each built 
 
 | Framework | Package | Version | Features |
 |-----------|---------|---------|----------|
-| Vue 3 | `@glasnost/vue` | 0.1.0 | Composition API, `<script setup>`, Scoped Styles |
-| React | `@glasnost/react` | 0.1.0 | Function Components, Hooks, styled-jsx |
-| Svelte | `@glasnost/svelte` | 0.1.0 | Reactive Declarations, Event Dispatchers |
-| Shared | `@glasnost/shared` | 0.1.0 | Common SVG filters, CSS styles, TypeScript types |
+| Vue 3 | `@glasnost-ui/vue` | 0.1.0 | Composition API, `<script setup>`, Scoped Styles |
+| React | `@glasnost-ui/react` | 0.1.0 | Function Components, Hooks, styled-jsx |
+| Svelte | `@glasnost-ui/svelte` | 0.1.0 | Reactive Declarations, Event Dispatchers |
+| Shared | `@glasnost-ui/shared` | 0.1.0 | Common SVG filters, CSS styles, TypeScript types |
 
 ## 🛠 Framework-Specific Features
 
@@ -41,12 +41,12 @@ Glasnost UI provides native components for Vue 3, React, and Svelte, each built 
 
 ### Vue 3
 ```bash
-npm install @glasnost/vue vue@^3.3.0
+npm install @glasnost-ui/vue vue@^3.3.0
 ```
 
 ```vue
 <script setup>
-import { Navbar, GlassButton } from '@glasnost/vue'
+import { Navbar, GlassButton } from '@glasnost-ui/vue'
 </script>
 
 <template>
@@ -57,11 +57,11 @@ import { Navbar, GlassButton } from '@glasnost/vue'
 
 ### React
 ```bash
-npm install @glasnost/react react@^18.0.0 react-dom@^18.0.0
+npm install @glasnost-ui/react react@^18.0.0 react-dom@^18.0.0
 ```
 
 ```tsx
-import { Navbar, GlassButton } from '@glasnost/react'
+import { Navbar, GlassButton } from '@glasnost-ui/react'
 
 export function App() {
   return (
@@ -75,12 +75,12 @@ export function App() {
 
 ### Svelte
 ```bash
-npm install @glasnost/svelte svelte@^4.0.0
+npm install @glasnost-ui/svelte svelte@^4.0.0
 ```
 
 ```svelte
 <script>
-  import { Navbar, GlassButton } from '@glasnost/svelte'
+  import { Navbar, GlassButton } from '@glasnost-ui/svelte'
 </script>
 
 <Navbar centerLogo="My App" />
