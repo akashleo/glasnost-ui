@@ -22,7 +22,7 @@ yarn-error.log*
 .DS_Store 
 
 # Map files
-*.map
+dist/**/*.map
 
 # Source files
 src/
