@@ -18,11 +18,10 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {
-      external: ['vue', '@glasnost-ui/shared'],
+      external: ['vue'],
       output: {
         globals: {
-          vue: 'Vue',
-          '@glasnost-ui/shared': 'GlasnostShared'
+          vue: 'Vue'
         }
       }
     }

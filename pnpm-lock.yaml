@@ -105,7 +105,7 @@ importers:
   packages/react:
     dependencies:
       '@glasnost-ui/shared':
-        specifier: workspace:0.1.0
+        specifier: ^0.1.2
         version: link:../shared
     devDependencies:
       '@types/react':
@@ -148,7 +148,7 @@ importers:
   packages/svelte:
     dependencies:
       '@glasnost-ui/shared':
-        specifier: workspace:*
+        specifier: workspace:0.1.2
         version: link:../shared
     devDependencies:
       '@sveltejs/vite-plugin-svelte':
@@ -173,7 +173,7 @@ importers:
   packages/vue:
     dependencies:
       '@glasnost-ui/shared':
-        specifier: workspace:0.1.0
+        specifier: workspace:0.1.2
         version: link:../shared
     devDependencies:
       '@vitejs/plugin-vue':

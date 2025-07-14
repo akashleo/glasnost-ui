@@ -42,9 +42,7 @@
     "clean": "rm -rf dist",
     "test": "vitest"
   },
-  "dependencies": {
-    "@glasnost-ui/shared": "workspace:0.1.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.4.0",
     "@types/node": "^18.0.0",

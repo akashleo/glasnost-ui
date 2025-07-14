@@ -15,9 +15,7 @@
     "clean": "rm -rf dist",
     "test": "vitest"
   },
-  "dependencies": {
-    "@glasnost-ui/shared": "workspace:0.1.2"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "vue": "^3.3.0"
   },

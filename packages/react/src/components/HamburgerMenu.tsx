@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { injectLiquidGlassFilters } from '@glasnost-ui/shared'
+import { injectLiquidGlassFilters } from '../filters'
 
 export interface ReactHamburgerMenuProps {
   isOpen: boolean

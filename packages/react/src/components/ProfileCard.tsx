@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { injectLiquidGlassFilters } from '@glasnost-ui/shared'
-import type { ProfileCardProps } from '@glasnost-ui/shared'
+import { injectLiquidGlassFilters } from '../filters'
+import type { ProfileCardProps } from '../types'
 
 export interface ReactProfileCardProps extends Omit<ProfileCardProps, 'children'> {
   avatar: string

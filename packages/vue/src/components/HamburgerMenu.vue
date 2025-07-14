@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
-import { injectLiquidGlassFilters } from '@glasnost-ui/shared'
+import { injectLiquidGlassFilters } from '../filters'
 
 interface Props {
   isOpen: boolean

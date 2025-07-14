@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { injectLiquidGlassFilters } from '@glasnost-ui/shared'
+import { injectLiquidGlassFilters } from '../filters'
 
 interface Props {
   comments?: any
@@ -10,7 +10,7 @@ interface Props {
   moreButtonText?: string
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   className: '',
   title: 'Comments',
   showMoreButton: true,

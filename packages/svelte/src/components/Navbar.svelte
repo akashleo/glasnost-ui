@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { injectLiquidGlassFilters } from '@glasnost-ui/shared'
+import { injectLiquidGlassFilters } from '../filters'
 
   export let leftSlot = null
   export let centerLogo = null

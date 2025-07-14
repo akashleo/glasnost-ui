@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, createEventDispatcher } from 'svelte'
-  import { injectLiquidGlassFilters } from '@glasnost-ui/shared'
+import { injectLiquidGlassFilters } from '../filters'
 
   export let comments = null
   export let title = 'Comments'

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { injectLiquidGlassFilters } from '@glasnost-ui/shared'
-import type { CommentListCardProps } from '@glasnost-ui/shared'
+import { injectLiquidGlassFilters } from '../filters'
+import type { CommentListCardProps } from '../types'
 
 export interface ReactCommentListCardProps extends Omit<CommentListCardProps, 'children'> {
   title?: string

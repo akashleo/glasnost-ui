@@ -8,7 +8,7 @@ export { CommentListCard } from './components/CommentListCard'
 export { HamburgerMenu } from './components/HamburgerMenu'
 export { GlassToggleButton } from './components/GlassToggleButton'
 
-// Re-export shared types and utilities
+// Export types and utilities
 export type {
   GlassComponentProps,
   NavbarProps,
@@ -17,6 +17,6 @@ export type {
   GlassButtonProps,
   HamburgerMenuProps,
   GlassToggleButtonProps
-} from '@glasnost-ui/shared'
+} from './types'
 
-export { injectLiquidGlassFilters } from '@glasnost-ui/shared' 
+export { injectLiquidGlassFilters } from './filters' 
