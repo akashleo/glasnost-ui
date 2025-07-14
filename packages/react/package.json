@@ -1,6 +1,6 @@
 {
   "name": "@glasnost-ui/react",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "React components for Glasnost UI with liquid glass aesthetics",
   "keywords": [
     "react-glass-ui",

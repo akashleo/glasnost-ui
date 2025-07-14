@@ -1,6 +1,6 @@
 {
   "name": "@glasnost-ui/svelte",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Svelte components for Glasnost UI with liquid glass aesthetics",
   "keywords": [
     "svelte-glass-ui",
