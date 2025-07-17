@@ -24,6 +24,19 @@ pnpm add @glasnost-ui/react
 yarn add @glasnost-ui/react
 ```
 
+## 📋 Important: Import Styles
+
+Make sure to import the CSS styles in your application:
+
+```jsx
+// Import the styles in your entry file (e.g., main.tsx, index.tsx)
+import '@glasnost-ui/react/styles';
+ -or-
+import '@glasnost-ui/vue/dist/style.css'
+```
+
+## Demo : https://glasnost.netlify.app/
+
 ## 📦 Available Components
 
 ### Navbar
@@ -249,4 +262,4 @@ Contributions welcome! Please read our contributing guide.
 ## 🔗 Related Packages
 
 - `@glasnost-ui/vue` - Vue 3 components
-- `@glasnost-ui/shared` - Shared utilities and types 
+- `@glasnost-ui/svelte` - Svelte components 

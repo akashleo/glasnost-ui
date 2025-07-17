@@ -1,7 +1,6 @@
 export interface GlassComponentProps {
   className?: string;
   style?: Record<string, any>;
-  children?: any;
 }
 
 export interface NavbarProps extends GlassComponentProps {
@@ -28,17 +27,17 @@ export interface GlassButtonProps extends GlassComponentProps {
   variant?: 'primary' | 'secondary' | 'accent';
   size?: 'small' | 'medium' | 'large';
   disabled?: boolean;
-  onClick?: () => void;
+  onclick?: (event: MouseEvent) => void;
 }
 
 export interface HamburgerMenuProps extends GlassComponentProps {
   isOpen: boolean;
-  onToggle: () => void;
+  ontoggle?: () => void;
 }
 
 export interface GlassToggleButtonProps extends GlassComponentProps {
   checked: boolean;
-  onChange: (checked: boolean) => void;
+  onchange?: (checked: boolean) => void;
   label?: string;
   disabled?: boolean;
   size?: 'small' | 'medium' | 'large';

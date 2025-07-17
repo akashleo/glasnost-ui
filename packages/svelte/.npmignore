@@ -23,6 +23,7 @@ yarn-error.log*
 
 # Map files
 dist/**/*.map
+*.map
 
 # Source files
 src/

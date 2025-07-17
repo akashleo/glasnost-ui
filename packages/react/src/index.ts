@@ -1,4 +1,5 @@
-// Import CSS styles
+// CSS styles are exported separately via package.json "exports" field
+// Users should import them with: import '@glasnost-ui/react/styles'
 import './index.css'
 
 export { Navbar } from './components/Navbar'

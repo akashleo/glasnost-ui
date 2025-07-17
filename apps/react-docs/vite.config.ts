@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@glasnost-ui/shared': resolve(__dirname, '../../packages/shared/src/index.ts'),
-      '@glasnost-ui/react': resolve(__dirname, '../../packages/react/src/index.ts')
+      '@glasnost-ui/react': resolve(__dirname, '../../packages/react/src/index.ts'),
+      '@glasnost-ui/react/styles': resolve(__dirname, '../../packages/react/src/index.css')
     }
   },
   server: {

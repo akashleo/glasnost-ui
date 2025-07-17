@@ -3,13 +3,17 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "allowJs": true,
     "checkJs": true,
     "declaration": true,
     "declarationDir": "./dist",
     "outDir": "./dist",
     "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
     "types": ["svelte"]
   },
   "include": ["src/**/*"],

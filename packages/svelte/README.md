@@ -26,6 +26,18 @@ pnpm add @glasnost-ui/svelte
 yarn add @glasnost-ui/svelte
 ```
 
+## 📋 Important: Import Styles
+
+Make sure to import the CSS styles in your application:
+
+```javascript
+// Import the styles in your entry file (e.g., main.js, app.js)
+import '@glasnost-ui/svelte/styles';
+ - or -
+import '@glasnost-ui/svelte/dist/style.css'
+```
+## Demo : https://glasnost.netlify.app/
+
 ## 📦 Available Components
 
 ### Navbar
@@ -221,6 +233,26 @@ Animated toggle switch with glass effect and comprehensive state management.
 ```
 
 ## 🎨 Styling
+
+The components use external CSS for all styling, making them highly performant and customizable. The CSS is automatically imported when you import the package.
+
+You can override styles by targeting the component classes:
+
+```css
+/* Custom button styling */
+.glasnost-glass-button {
+  --glass-opacity: 0.2;
+}
+
+/* Custom toggle colors */
+.toggle-button--primary.toggle-button--checked .toggle-track {
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.4) 0%, 
+    rgba(29, 78, 216, 0.3) 100%);
+}
+```
+
+## 🎨 CSS Variables
 
 All components use CSS variables for easy theming:
 
@@ -481,6 +513,13 @@ All components are fully reactive and emit events for state changes:
 </style>
 ```
 
+## 🚀 Performance
+
+- External CSS for better caching and performance
+- Optimized animations with `transform` and `opacity`
+- Reduced motion support for accessibility
+- Efficient re-renders with proper Svelte patterns
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -505,8 +544,8 @@ pnpm build
 
 MIT License - see LICENSE file for details.
 
-## 🔗 Related
+## 🔗 Related Packages
 
-- [Glasnost UI React](../react/) - React components
-- [Glasnost UI Vue](../vue/) - Vue components
-- [Glasnost UI Shared](../shared/) - Shared utilities and styles 
+- `@glasnost-ui/react` - React components
+- `@glasnost-ui/vue` - Vue 3 components
+- `@glasnost-ui/shared` - Shared utilities and styles 
