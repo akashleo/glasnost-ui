@@ -11,7 +11,7 @@ import {
 import './App.css';
 
 const userProfile = {
-  avatar: 'https://scontent.fblr8-1.fna.fbcdn.net/v/t39.30808-6/228591002_4568736809845299_2656376336883463931_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=Fz78mmlwA60Q7kNvwFE-VjL&_nc_oc=AdmNdG3BMJfR2of-84iVsPqqFAqvHCJvo-7LzJJrVsXiSjjagRDBNaCDWa-Lj3BVNFk&_nc_zt=23&_nc_ht=scontent.fblr8-1.fna&_nc_gid=AcpxF6AP30QFZiLIiXOtMg&oh=00_AfR6wwEHvI9CTWPAmpI1BzwhjdsEzeGB180HS-34Gj-DBw&oe=687879E1',
+  avatar: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Zitting_Cisticola_in_Bhigwan_August_2025_by_Tisha_Mukherjee_01.jpg/1920px-Zitting_Cisticola_in_Bhigwan_August_2025_by_Tisha_Mukherjee_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
   name: 'Akash Ghosh',
   title: 'Frontend Engineer',
 };
@@ -22,68 +22,94 @@ const componentList = [
     id: 'profile-card',
     name: 'Profile Card',
     icon: '👤',
-    description: 'User profile display with avatar and actions'
+    description: 'User profile display with avatar and actions',
+    usage: 'Display a user identity with avatar, name and title. Provide custom actions (follow, message, etc.) through the actions prop — typically GlassButtons.',
+    code: `<ProfileCard
+  avatar="/avatar.jpg"
+  name="Akash Ghosh"
+  title="Frontend Engineer"
+  actions={
+    <GlassButton size="small" variant="primary">
+      Follow
+    </GlassButton>
+  }
+/>`
   },
   {
     id: 'glass-buttons',
     name: 'Glass Buttons',
     icon: '🔘',
-    description: 'Interactive buttons with glass morphism'
+    description: 'Interactive buttons with glass morphism',
+    usage: 'Use for primary actions throughout the interface. Combine a size (small, medium, large) with a variant (primary, secondary, accent) and disable when the action is unavailable.',
+    code: `<GlassButton size="medium" variant="primary">
+  Click me
+</GlassButton>
+
+<GlassButton variant="primary" disabled>
+  Disabled
+</GlassButton>`
   },
   {
     id: 'comment-card',
     name: 'Comment Card',
     icon: '💬',
-    description: 'Comment list with liquid glass effects'
+    description: 'Comment list with liquid glass effects',
+    usage: 'Wrap comment items in a styled card with a title and optional "load more" pagination via the onMore callback and showMoreButton prop.',
+    code: `<CommentListCard
+  title="Recent Comments"
+  onMore={loadMore}
+  showMoreButton
+  count={3}
+  moreButtonText="Load More"
+>
+  {comments.map(renderComment)}
+</CommentListCard>`
   },
   {
     id: 'toggle-button',
     name: 'Toggle Button',
     icon: '🔘',
-    description: 'Animated toggle switch component'
+    description: 'Animated toggle switch component',
+    usage: 'A controlled switch for boolean settings. Keep the checked state in React state and update it via the onChange callback; add a label for accessibility.',
+    code: `const [enabled, setEnabled] = useState(false);
+
+<GlassToggleButton
+  size="medium"
+  variant="primary"
+  checked={enabled}
+  onChange={setEnabled}
+  label="Enable notifications"
+/>`
   },
   {
     id: 'hamburger-menu',
     name: 'Hamburger Menu',
     icon: '☰',
-    description: 'Animated hamburger menu button'
+    description: 'Animated hamburger menu button',
+    usage: 'Animated menu trigger — typically placed in the Navbar left slot. Drive it with an isOpen boolean and an onToggle handler.',
+    code: `const [isOpen, setIsOpen] = useState(false);
+
+<HamburgerMenu
+  isOpen={isOpen}
+  onToggle={() => setIsOpen(o => !o)}
+/>`
   },
   {
     id: 'navbar',
     name: 'Navbar',
     icon: '📋',
-    description: 'Navigation bar with glass effects'
-  }
-];
-
-// Background gradient options
-const backgroundOptions = [
-  {
-    name: 'Protruding Squares',
-    svg: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 200 200"><rect fill="%23ee5522" width="200" height="200"/><defs><linearGradient id="a" gradientUnits="userSpaceOnUse" x1="100" y1="33" x2="100" y2="-3"><stop offset="0" stop-color="%23000" stop-opacity="0"/><stop offset="1" stop-color="%23000" stop-opacity="1"/></linearGradient><linearGradient id="b" gradientUnits="userSpaceOnUse" x1="100" y1="135" x2="100" y2="97"><stop offset="0" stop-color="%23000" stop-opacity="0"/><stop offset="1" stop-color="%23000" stop-opacity="1"/></linearGradient></defs><g fill="%23d23d09" fill-opacity="0.6"><rect x="100" width="100" height="100"/><rect y="100" width="100" height="100"/></g><g fill-opacity="0.5"><polygon fill="url(%23a)" points="100 30 0 0 200 0"/><polygon fill="url(%23b)" points="100 100 0 130 0 100 200 100 200 130"/></g></svg>')`,
-    icon: '🟪'
-  },
-  {
-    name: 'Wavey Fingerprint',
-    svg: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="250" height="30" viewBox="0 0 1000 120"><rect fill="%23000000" width="1000" height="120"/><g fill="none" stroke="%23222" stroke-width="10" stroke-opacity="1"><path d="M-500 75c0 0 125-30 250-30S0 75 0 75s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30"/><path d="M-500 45c0 0 125-30 250-30S0 45 0 45s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30"/><path d="M-500 105c0 0 125-30 250-30S0 105 0 105s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30"/><path d="M-500 15c0 0 125-30 250-30S0 15 0 15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30"/><path d="M-500-15c0 0 125-30 250-30S0-15 0-15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30"/><path d="M-500 135c0 0 125-30 250-30S0 135 0 135s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30"/></g></svg>')`,
-    icon: '🌀'
-  },
-  {
-    name: 'Abstract Timekeeper',
-    svg: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 1500"><rect fill="%23000000" width="2000" height="1500"/><defs><circle stroke="%23D60" vector-effect="non-scaling-stroke" id="a" fill="none" stroke-width="5" r="315"/><use id="f" href="%23a" stroke-dasharray="100 100 100 9999"/><use id="b" href="%23a" stroke-dasharray="250 250 250 250 250 9999"/><use id="e" href="%23a" stroke-dasharray="1000 500 1000 500 9999"/><use id="g" href="%23a" stroke-dasharray="1500 9999"/><use id="h" href="%23a" stroke-dasharray="2000 500 500 9999"/><use id="j" href="%23a" stroke-dasharray="800 800 800 800 800 9999"/><use id="k" href="%23a" stroke-dasharray="1200 1200 1200 1200 1200 9999"/><use id="l" href="%23a" stroke-dasharray="1600 1600 1600 1600 1600 9999"/></defs><g transform="translate(1000 750)" stroke-opacity="1"><g transform="rotate(0 0 0)"><circle fill="%23D60" fill-opacity="1" r="10"/><g transform="rotate(0 0 0)"><use href="%23f" transform="scale(.1) rotate(50 0 0)"/><use href="%23f" transform="scale(.2) rotate(100 0 0)"/><use href="%23f" transform="scale(.3) rotate(150 0 0)"/></g><g transform="rotate(0 0 0)"><use href="%23b" transform="scale(.4) rotate(200 0 0)"/><use href="%23z" transform="scale(.5) rotate(250 0 0)"/></g><g id="z" transform="rotate(0 0 0)"><g transform="rotate(0 0 0)"><use href="%23b"/><use href="%23b" transform="scale(1.2) rotate(90 0 0)"/><use href="%23b" transform="scale(1.4) rotate(60 0 0)"/><use href="%23e" transform="scale(1.6) rotate(120 0 0)"/><use href="%23e" transform="scale(1.8) rotate(30 0 0)"/></g></g><g id="y" transform="rotate(0 0 0)"><g transform="rotate(0 0 0)"><use href="%23e" transform="scale(1.1) rotate(20 0 0)"/><use href="%23g" transform="scale(1.3) rotate(-40 0 0)"/><use href="%23g" transform="scale(1.5) rotate(60 0 0)"/><use href="%23h" transform="scale(1.7) rotate(-80 0 0)"/><use href="%23j" transform="scale(1.9) rotate(100 0 0)"/></g></g><g transform="rotate(0 0 0)"><g transform="rotate(0 0 0)"><g transform="rotate(0 0 0)"><use href="%23h" transform="scale(2) rotate(60 0 0)"/><use href="%23j" transform="scale(2.1) rotate(120 0 0)"/><use href="%23j" transform="scale(2.3) rotate(180 0 0)"/><use href="%23h" transform="scale(2.4) rotate(240 0 0)"/><use href="%23j" transform="scale(2.5) rotate(300 0 0)"/></g><use href="%23y" transform="scale(2) rotate(180 0 0)"/><use href="%23j" transform="scale(2.7)"/><use href="%23j" transform="scale(2.8) rotate(45 0 0)"/><use href="%23j" transform="scale(2.9) rotate(90 0 0)"/><use href="%23k" transform="scale(3.1) rotate(135 0 0)"/><use href="%23k" transform="scale(3.2) rotate(180 0 0)"/></g><use href="%23k" transform="scale(3.3) rotate(225 0 0)"/><use href="%23k" transform="scale(3.5) rotate(270 0 0)"/><use href="%23k" transform="scale(3.6) rotate(315 0 0)"/><use href="%23k" transform="scale(3.7)"/><use href="%23k" transform="scale(3.9) rotate(75 0 0)"/></g></g></g></svg>')`,
-    icon: '⏰'
-  },
-  {
-    name: 'Zig Zag',
-    svg: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><rect fill="%2300bb77" width="120" height="120"/><polygon fill="%23000" fill-opacity=".1" points="120 0 120 60 90 30 60 0 0 0 0 0 60 60 0 120 60 120 90 90 120 60 120 0"/></svg>')`,
-    icon: '〰️'
+    description: 'Navigation bar with glass effects',
+    usage: 'Compose a top navigation bar from three slots: leftSlot (menu), centerLogo (brand) and rightSlot (actions).',
+    code: `<Navbar
+  leftSlot={<HamburgerMenu isOpen={isOpen} onToggle={toggle} />}
+  centerLogo={<span>Glasnost UI</span>}
+  rightSlot={<GlassButton variant="primary">Start</GlassButton>}
+/>`
   }
 ];
 
 const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isToggleChecked, setIsToggleChecked] = useState(false);
-  const [selectedBackground, setSelectedBackground] = useState(0);
   const [selectedComponent, setSelectedComponent] = useState('profile-card');
 
   // Toggle button states
@@ -104,15 +130,10 @@ const App: React.FC = () => {
     notifications: true,
   });
 
-  const currentGradient = backgroundOptions[selectedBackground].svg;
   const currentComponent = componentList.find(c => c.id === selectedComponent);
 
   const handleMenuToggle = useCallback(() => {
     setIsMenuOpen(prev => !prev);
-  }, []);
-
-  const handleToggleChange = useCallback((checked: boolean) => {
-    setIsToggleChecked(checked);
   }, []);
 
   const handleSizeToggle = useCallback((size: 'small' | 'medium' | 'large', checked: boolean) => {
@@ -129,10 +150,6 @@ const App: React.FC = () => {
 
   const handleMoreComments = useCallback(() => {
     alert('Loading more comments...');
-  }, []);
-
-  const selectBackground = useCallback((index: number) => {
-    setSelectedBackground(index);
   }, []);
 
   const selectComponent = useCallback((componentId: string) => {
@@ -370,7 +387,21 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="app" style={{ background: currentGradient }}>
+    <div className="app">
+      {/* Top Navigation */}
+      <header className="app-header">
+        <Navbar 
+          style={{width: "100%", margin:"0 auto"}}
+          leftSlot={<HamburgerMenu isOpen={isMenuOpen} onToggle={handleMenuToggle} />}
+          centerLogo={<span className="brand-name" style={{ fontWeight: 700, fontSize: '1.25rem' }}>Glasnost UI</span>}
+          rightSlot={
+            <GlassButton size="small" variant="primary">
+              React Docs
+            </GlassButton>
+          }
+        />
+      </header>
+
       {/* Main Content */}
       <main className="main-content">
         <div className="layout-container">
@@ -402,29 +433,18 @@ const App: React.FC = () => {
               <div className="showcase-content">
                 {renderSelectedComponent()}
               </div>
+              {currentComponent && (
+                <div className="usage-panel">
+                  <div className="usage-header">
+                    <span className="usage-icon">{currentComponent.icon}</span>
+                    <h3 className="usage-title">Using {currentComponent.name}</h3>
+                  </div>
+                  <p className="usage-description">{currentComponent.usage}</p>
+                  <pre className="usage-code"><code>{currentComponent.code}</code></pre>
+                </div>
+              )}
             </div>
           </section>
-
-          {/* Right Sidebar: Background Options */}
-          <aside className="sidebar-right">
-            <div className="sidebar-content">
-              <h2 className="sidebar-title">Background</h2>
-              <div className="background-options">
-                {backgroundOptions.map((option, index) => (
-                  <button
-                    key={index}
-                    className={`background-option ${selectedBackground === index ? 'active' : ''}`}
-                    style={{ background: option.svg }}
-                    onClick={() => selectBackground(index)}
-                    title={option.name}
-                  >
-                    <span className="option-icon">{option.icon}</span>
-                    <span className="option-name">{option.name}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </aside>
         </div>
       </main>
     </div>

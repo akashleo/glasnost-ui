@@ -1,6 +1,12 @@
 .app {
   min-height: 100vh;
-  transition: background 0.5s ease;
+  background: #0b1220;
+}
+
+.app-header {
+  padding: 1.5rem 2rem 0.5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .main-content {
@@ -9,9 +15,9 @@
 
 .layout-container {
   display: grid;
-  grid-template-columns: 300px 1fr 280px;
+  grid-template-columns: 300px 1fr;
   gap: 2rem;
-  max-width: 1600px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
   min-height: calc(100vh - 80px);
@@ -27,8 +33,7 @@
 }
 
 /* Sidebar Styles */
-.sidebar-left,
-.sidebar-right {
+.sidebar-left {
   position: sticky;
   top: 2rem;
   height: fit-content;
@@ -265,66 +270,62 @@
   gap: 0.5rem;
 }
 
-/* Background Options */
-.background-options {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+/* Usage Panel */
+.usage-panel {
+  margin-top: 2rem;
+  width: 100%;
+  backdrop-filter: blur(20px) saturate(1.8) brightness(1.1);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8) brightness(1.1);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
-.background-option {
+.usage-header {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: left;
-  color: rgba(255, 255, 255, 0.9);
-  position: relative;
-  overflow: hidden;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
 }
 
-.background-option::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: inherit;
-  opacity: 0.3;
-  z-index: 1;
+.usage-icon {
+  font-size: 1.5rem;
 }
 
-.background-option:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-.background-option.active {
-  border-color: rgba(255, 255, 255, 0.4);
-  transform: translateY(-1px);
-}
-
-.option-icon,
-.option-name {
-  position: relative;
-  z-index: 2;
-}
-
-.option-icon {
+.usage-title {
   font-size: 1.25rem;
-  flex-shrink: 0;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.option-name {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+.usage-description {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin: 0 0 1.25rem 0;
+}
+
+.usage-code {
+  margin: 0;
+  padding: 1.25rem;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  overflow-x: auto;
+}
+
+.usage-code code {
+  font-family: 'Fira Code', 'Cascadia Code', Consolas, monospace;
+  white-space: pre;
 }
 
 /* Comment item styling */
@@ -380,7 +381,7 @@
 /* Responsive Design */
 @media (max-width: 1200px) {
   .layout-container {
-    grid-template-columns: 250px 1fr 220px;
+    grid-template-columns: 250px 1fr;
     gap: 1.5rem;
   }
 }
@@ -391,8 +392,7 @@
     gap: 2rem;
   }
   
-  .sidebar-left,
-  .sidebar-right {
+  .sidebar-left {
     position: static;
   }
   
@@ -403,12 +403,6 @@
   .component-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 0.75rem;
-  }
-  
-  .background-options {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 0.75rem;
   }
 }
@@ -457,32 +451,6 @@
     overflow: hidden;
   }
   
-  .background-options {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    justify-content: space-between;
-    padding: 0;
-  }
-  
-  .background-option {
-    flex: 1;
-    min-width: 0;
-    max-width: none;
-    padding: 1rem 0.5rem;
-    flex-direction: column;
-    text-align: center;
-    gap: 0.5rem;
-  }
-  
-  .option-icon {
-    font-size: 1.5rem;
-  }
-  
-  .option-name {
-    display: none;
-  }
-  
   .button-row {
     flex-direction: column;
     align-items: center;
@@ -524,14 +492,6 @@
   
   .component-description {
     font-size: 0.7rem;
-  }
-  
-  .background-option {
-    padding: 0.75rem 0.25rem;
-  }
-  
-  .option-icon {
-    font-size: 1.25rem;
   }
   
   .sidebar-content {
